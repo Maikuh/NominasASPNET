@@ -1,0 +1,75 @@
+﻿@model Nominas.Empleado
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>Empleado</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <h5>Datos personales</h5>
+        <dt>
+            @Html.DisplayNameFor(model => model.Nombre)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Nombre)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Apellido)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Apellido)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Cedula)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Cedula)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Fecha_Nacimiento)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Fecha_Nacimiento)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Cargo.Nombre)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Cargo.Nombre)
+        </dd>
+        
+        <dt>
+            @Html.DisplayNameFor(model => model.Direccion)
+        </dt>
+
+        <dd>
+            @Model.Direccion.Provincia, @Model.Direccion.Sector, Calle @Model.Direccion.Calle.
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Horario.Codigo_Horario)
+        </dt>
+
+        <dd>
+            @Model.Horario.Hora_Inicio.ToString("t") a @Model.Horario.Hora_Fin.ToString("t")
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.Codigo_Empleado }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

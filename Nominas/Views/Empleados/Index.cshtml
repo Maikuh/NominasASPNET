@@ -1,0 +1,69 @@
+﻿@model IEnumerable<Nominas.Empleado>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Index</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.Nombre)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Apellido)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Cedula)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Fecha_Nacimiento)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Cargo.Nombre)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Direccion.Provincia)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Horario.Codigo_Horario)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.Nombre)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Apellido)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Cedula)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Fecha_Nacimiento)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Cargo.Nombre)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Direccion.Provincia)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Horario.Codigo_Horario)
+        </td>
+        <td>
+            @Html.ActionLink("Edit", "Edit", new { id=item.Codigo_Empleado }) |
+            @Html.ActionLink("Details", "Details", new { id=item.Codigo_Empleado }) |
+            @Html.ActionLink("Delete", "Delete", new { id=item.Codigo_Empleado })
+        </td>
+    </tr>
+}
+
+</table>
