@@ -205,6 +205,7 @@
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\HorariosController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
+    <Compile Include="Controllers\NominasController.cs" />
     <Compile Include="Departamento.cs">
       <DependentUpon>NominaDbModel.tt</DependentUpon>
     </Compile>
@@ -366,6 +367,11 @@
     <Content Include="Views\Horarios\Details.cshtml" />
     <Content Include="Views\Horarios\Edit.cshtml" />
     <Content Include="Views\Horarios\Index.cshtml" />
+    <Content Include="Views\Nominas\Create.cshtml" />
+    <Content Include="Views\Nominas\Delete.cshtml" />
+    <Content Include="Views\Nominas\Details.cshtml" />
+    <Content Include="Views\Nominas\Edit.cshtml" />
+    <Content Include="Views\Nominas\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

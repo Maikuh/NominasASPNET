@@ -18,8 +18,9 @@
         
         <div class="navbar-collapse collapse">
             <ul class="nav navbar-nav">
-                <li class="@(ViewContext.RouteData.Values["Action"].ToString() == "Index" ? "nav-item active" : "nav-item")">@Html.ActionLink("Home", "Index", "Home", null, new { @class = "nav-link"})</li>
+                <li class="@(ViewContext.RouteData.Values["Action"].ToString() == "Index" ? "nav-item active" : "nav-item")">@Html.ActionLink("Home", "Index", "Home", null, new { @class = "nav-link" })</li>
                 <li class="@(ViewContext.RouteData.Values["Controller"].ToString() == "Empleados" ? "nav-item active" : "nav-item")">@Html.ActionLink("Empleados", "Index", "Empleados", null, new { @class = "nav-link" })</li>
+                <li class="@(ViewContext.RouteData.Values["Controller"].ToString() == "Nominas" ? "nav-item active" : "nav-item")">@Html.ActionLink("Nominas", "Index", "Nominas", null, new { @class = "nav-link" })</li>
                 <li class="@(ViewContext.RouteData.Values["Action"].ToString() == "About" ? "nav-item active" : "nav-item")">@Html.ActionLink("About", "About", "Home", null, new { @class = "nav-link" })</li>
                 <li class="@(ViewContext.RouteData.Values["Action"].ToString() == "Contact" ? "nav-item active" : "nav-item")">@Html.ActionLink("Contact", "Contact", "Home", null, new { @class = "nav-link" })</li>
             </ul>
