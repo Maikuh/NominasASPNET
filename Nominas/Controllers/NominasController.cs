@@ -7,6 +7,7 @@ using System.Net;
 using System.Web;
 using System.Web.Mvc;
 using Nominas;
+using Nominas.ViewModels;
 
 namespace Nominas.Controllers
 {
@@ -48,16 +49,30 @@ namespace Nominas.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
+        //public ActionResult Create(NewNominaViewModel viewModel)
+        //{
+        //       var nomina = new Nomina()
+        //       {
+        //              Codigo_Empleado = Int32.Parse(viewModel.Codigo_Empleado),
+        //              Sueldo = Convert.ToDecimal(viewModel.Sueldo)
+
+        //       };
+        //    db.Nomina.Add(nomina);
+        //    db.SaveChanges();
+        //    return View();
+        //}
+
+
         public ActionResult Create([Bind(Include = "Codigo_Nomina,Codigo_Suplemento,Codigo_Empleado,Sueldo")] Nomina nomina)
         {
             try
-            { 
-            if (ModelState.IsValid)
             {
-                db.Nomina.Add(nomina);
-                db.SaveChanges();
-                return RedirectToAction("Index");
-            }
+                if (ModelState.IsValid)
+                {
+                    db.Nomina.Add(nomina);
+                    db.SaveChanges();
+                    return RedirectToAction("Index");
+                }
             }
             catch (DataException)
             {

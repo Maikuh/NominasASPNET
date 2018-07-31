@@ -248,6 +248,7 @@
       <DependentUpon>NominaDbModel.tt</DependentUpon>
     </Compile>
     <Compile Include="ViewModels\NewEmpleadoViewModel.cs" />
+    <Compile Include="ViewModels\NewNominaViewModel.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Content\bootstrap.min.css" />
