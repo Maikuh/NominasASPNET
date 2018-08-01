@@ -69,14 +69,11 @@ namespace Nominas.Controllers
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult Create(NewNominaViewModel viewModel)
->>>>>>> Added Nomina create functionality,  modified Index view to implement changes, Edit functionality is WIP, Delete is untested.
         {
             if (!ModelState.IsValid)
                 return View(viewModel);
 
             try
-<<<<<<< HEAD
-<<<<<<< HEAD
             {
                 if (ModelState.IsValid)
                 {
@@ -84,13 +81,8 @@ namespace Nominas.Controllers
                     db.SaveChanges();
                     return RedirectToAction("Index");
                 }
-=======
-            { 
-=======
-            {
                 // Initialize Nomina with posted values
                 // Set each Retencion's Nombre accordingly
->>>>>>> Finished Edit functionality. Deleting was untested, didn't work (fixed, had to do with Cascade Delete, fixed very straightforwardly in controller). Commented a bit on NominaCtrl explaining a lil.
                 var nomina = new Nomina(viewModel.Nomina.Sueldo, viewModel.Nomina.Codigo_Empleado)
                 {
                     Retencion = new List<Retencion>
@@ -120,7 +112,6 @@ namespace Nominas.Controllers
 
                 db.Nomina.Add(nomina);
                 db.SaveChanges();
->>>>>>> Added Nomina create functionality,  modified Index view to implement changes, Edit functionality is WIP, Delete is untested.
             }
             catch (DataException)
             {
