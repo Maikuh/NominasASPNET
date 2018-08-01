@@ -75,12 +75,6 @@ namespace Nominas.Controllers
 
             try
             {
-                if (ModelState.IsValid)
-                {
-                    db.Nomina.Add(nomina);
-                    db.SaveChanges();
-                    return RedirectToAction("Index");
-                }
                 // Initialize Nomina with posted values
                 // Set each Retencion's Nombre accordingly
                 var nomina = new Nomina(viewModel.Nomina.Sueldo, viewModel.Nomina.Codigo_Empleado)
