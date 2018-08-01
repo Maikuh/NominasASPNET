@@ -8,6 +8,7 @@ using System.Web;
 using System.Web.Mvc;
 using Nominas;
 using Nominas.ViewModels;
+using PagedList;
 
 namespace Nominas.Controllers
 {
@@ -16,11 +17,52 @@ namespace Nominas.Controllers
         private NominaDbContext db = new NominaDbContext();
 
         // GET: Empleados
-        public ActionResult Index()
+        public ViewResult Index(string sortOrder, string searchString)
         {
-            var empleado = db.Empleado.Include(e => e.Cargo).Include(e => e.Direccion).Include(e => e.Horario);
-            return View(empleado.ToList());
+            ViewBag.CurrentSort = sortOrder;
+            ViewBag.NameSortParm = String.IsNullOrEmpty(sortOrder) ? "name_desc" : "";
+            ViewBag.ApellidoSortParm = sortOrder == "Lastname" ? "lastname_desc" : "Lastname";
+            ViewBag.CargoSortParm = sortOrder == "Cargo" ? "Cargo_desc" : "Cargo";
+            ViewBag.DateSortParm = sortOrder == "BirthDate" ? "date_desc" : "BirthDate";
+
+            var empleados = from e in db.Empleado
+                           select e;
+            if (!String.IsNullOrEmpty(searchString))
+            {
+                empleados = empleados.Where(e => e.Nombre.Contains(searchString)
+                                       || e.Apellido.Contains(searchString));
+            }
+
+            switch (sortOrder)
+            {
+                case "name_desc":
+                    empleados = empleados.OrderByDescending(e => e.Nombre);
+                    break;
+                case "Lastname":
+                    empleados = empleados.OrderBy(e => e.Apellido);
+                    break;
+                case "lastname_desc":
+                    empleados = empleados.OrderByDescending(e => e.Apellido);
+                    break;
+                case "BirthDate":
+                    empleados = empleados.OrderBy(e => e.Fecha_Nacimiento);
+                    break;
+                case "date_desc":
+                    empleados = empleados.OrderByDescending(e => e.Fecha_Nacimiento);
+                    break;
+                default:
+                    empleados = empleados.OrderBy(e => e.Nombre);
+                    break;
+            }
+
+            return View(empleados.ToList());
         }
+
+        //public ActionResult Index()
+        //{
+        //    var empleado = db.Empleado.Include(e => e.Cargo).Include(e => e.Direccion).Include(e => e.Horario);
+        //    return View(empleado.ToList());
+        //}
 
         // GET: Empleados/Details/5
         public ActionResult Details(int? id)
