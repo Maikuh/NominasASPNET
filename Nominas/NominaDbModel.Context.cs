@@ -22,6 +22,9 @@ namespace Nominas
     
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
+            //modelBuilder.Entity<Nomina>().HasMany<Retencion>(r => r.Retencion)
+            //    .WithRequired(n => n.Nomina).WillCascadeOnDelete(true);
+
             throw new UnintentionalCodeFirstException();
         }
     
