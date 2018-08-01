@@ -7,8 +7,6 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-using System.ComponentModel.DataAnnotations;
-
 namespace Nominas
 {
     using System;
@@ -23,12 +21,8 @@ namespace Nominas
         }
     
         public int Codigo_Horario { get; set; }
-
-        [DataType(DataType.Time), DisplayFormat(DataFormatString = "{0:t}")]
-        public DateTime Hora_Inicio { get; set; }
-
-        [DataType(DataType.Time), DisplayFormat(DataFormatString = "{0:t}")]
-        public DateTime Hora_Fin { get; set; }
+        public System.DateTime Hora_Inicio { get; set; }
+        public System.DateTime Hora_Fin { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Empleado> Empleado { get; set; }

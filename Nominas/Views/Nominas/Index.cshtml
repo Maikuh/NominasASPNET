@@ -12,13 +12,25 @@
 <table class="table">
     <tr>
         <th>
-            @Html.DisplayNameFor(model => model.Codigo_Empleado)
-        </th>
-        <th>
             @Html.DisplayNameFor(model => model.Empleado.Nombre)
         </th>
         <th>
+            @Html.DisplayNameFor(model => model.Empleado.Apellido)
+        </th>
+        <th>
             @Html.DisplayNameFor(model => model.Sueldo)
+        </th>
+        <th>
+            AFP
+        </th>
+        <th>
+            SFS
+        </th>
+        <th>
+            ISR
+        </th>
+        <th>
+            Seguro Medico
         </th>
         <th></th>
     </tr>
@@ -26,14 +38,20 @@
 @foreach (var item in Model) {
     <tr>
         <td>
-            @Html.DisplayFor(modelItem => item.Codigo_Empleado)
+            @Html.DisplayFor(modelItem => item.Empleado.Nombre)
         </td>
         <td>
-            @Html.DisplayFor(modelItem => item.Empleado.Nombre)
+            @Html.DisplayFor(modelItem => item.Empleado.Apellido)
         </td>
         <td>
             @Html.DisplayFor(modelItem => item.Sueldo)
         </td>
+        @foreach (var ret in item.Retencion)
+        {
+            <td>
+                @Html.DisplayFor(modelItem => ret.Cantidad)
+            </td>
+        }
         <td>
             @Html.ActionLink("Edit", "Edit", new { id = item.Codigo_Nomina }) |
             @Html.ActionLink("Details", "Details", new { id = item.Codigo_Nomina }) |

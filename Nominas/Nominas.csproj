@@ -243,10 +243,10 @@
       <DependentUpon>NominaDbModel.edmx</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Startup.cs" />
-    <Compile Include="Suplemento.cs">
+    <Compile Include="Retencion.cs">
       <DependentUpon>NominaDbModel.tt</DependentUpon>
     </Compile>
+    <Compile Include="Startup.cs" />
     <Compile Include="ViewModels\NewEmpleadoViewModel.cs" />
     <Compile Include="ViewModels\NewNominaViewModel.cs" />
   </ItemGroup>

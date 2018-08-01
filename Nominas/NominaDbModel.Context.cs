@@ -33,6 +33,6 @@ namespace Nominas
         public virtual DbSet<Empleado> Empleado { get; set; }
         public virtual DbSet<Horario> Horario { get; set; }
         public virtual DbSet<Nomina> Nomina { get; set; }
-        public virtual DbSet<Suplemento> Suplemento { get; set; }
+        public virtual DbSet<Retencion> Retencion { get; set; }
     }
 }

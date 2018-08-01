@@ -11,11 +11,27 @@
     <hr />
     <dl class="dl-horizontal">
         <dt>
-            @Html.DisplayNameFor(model => model.Codigo_Suplemento)
+            @Html.DisplayNameFor(model => model.Codigo_Nomina)
         </dt>
 
         <dd>
-            @Html.DisplayFor(model => model.Codigo_Suplemento)
+            @Html.DisplayFor(model => model.Codigo_Nomina)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Empleado.Nombre)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Empleado.Nombre)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Empleado.Apellido)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Empleado.Apellido)
         </dd>
 
         <dt>
@@ -26,13 +42,16 @@
             @Html.DisplayFor(model => model.Sueldo)
         </dd>
 
+        @foreach (var ret in Model.Retencion)
+    {
         <dt>
-            @Html.DisplayNameFor(model => model.Empleado.Nombre)
+            @Html.DisplayName(ret.Nombre)
         </dt>
 
         <dd>
-            @Html.DisplayFor(model => model.Empleado.Nombre)
+            @Html.DisplayFor(modelItem => ret.Cantidad)
         </dd>
+}
 
     </dl>
 </div>

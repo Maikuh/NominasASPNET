@@ -13,7 +13,6 @@
         <EntityTypeShape EntityType="NominaDbModel.Empleado" Width="1.5" PointX="3" PointY="4.375" IsExpanded="true" />
         <EntityTypeShape EntityType="NominaDbModel.Horario" Width="1.5" PointX="0.75" PointY="11.625" IsExpanded="true" />
         <EntityTypeShape EntityType="NominaDbModel.Nomina" Width="1.5" PointX="5.25" PointY="7.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="NominaDbModel.Suplemento" Width="1.5" PointX="7.5" PointY="7.875" IsExpanded="true" />
         <AssociationConnector Association="NominaDbModel.FK_Codigo_Empleado" ManuallyRouted="false" />
         <AssociationConnector Association="NominaDbModel.FK_Cargo_Departamento" ManuallyRouted="false" />
         <AssociationConnector Association="NominaDbModel.FK_Empleado_Cargo" ManuallyRouted="false" />
@@ -21,7 +20,8 @@
         <AssociationConnector Association="NominaDbModel.FK_Empleado_Direccion" ManuallyRouted="false" />
         <AssociationConnector Association="NominaDbModel.FK_Empleado_Horario" ManuallyRouted="false" />
         <AssociationConnector Association="NominaDbModel.FK_Nomina_Empleado" ManuallyRouted="false" />
-        <AssociationConnector Association="NominaDbModel.Suplemento_Nomina" ManuallyRouted="false" />
+        <EntityTypeShape EntityType="NominaDbModel.Retencion" Width="1.5" PointX="7.5" PointY="11" />
+        <AssociationConnector Association="NominaDbModel.FK_Nomina_Retencion" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

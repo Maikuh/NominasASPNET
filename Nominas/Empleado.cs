@@ -7,8 +7,6 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-using System.ComponentModel.DataAnnotations;
-
 namespace Nominas
 {
     using System;
@@ -25,23 +23,12 @@ namespace Nominas
         }
     
         public int Codigo_Empleado { get; set; }
-
-        [Required]
         public string Nombre { get; set; }
-
-        [Required]
         public string Apellido { get; set; }
-        [Required]
         public string Cedula { get; set; }
-
-        [Required]
-        public DateTime Fecha_Nacimiento { get; set; }
-
-        [Required]
+        public System.DateTime Fecha_Nacimiento { get; set; }
         public int ID_Cargo { get; set; }
         public int ID_Direccion { get; set; }
-
-        [Required]
         public int Codigo_Horario { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]

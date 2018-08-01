@@ -11,22 +11,29 @@ namespace Nominas
 {
     using System;
     using System.Collections.Generic;
+    using System.ComponentModel.DataAnnotations;
     
     public partial class Nomina
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public Nomina()
         {
-            this.Suplemento = new HashSet<Suplemento>();
+            this.Retencion = new HashSet<Retencion>();
         }
-    
+
+        public Nomina(decimal sueldo, int empleado)
+        {
+            Codigo_Empleado = empleado;
+            Sueldo = sueldo;
+        }
+
+        [Display(Name = "ID Nomina")]
         public int Codigo_Nomina { get; set; }
-        public int Codigo_Suplemento { get; set; }
         public int Codigo_Empleado { get; set; }
         public decimal Sueldo { get; set; }
     
         public virtual Empleado Empleado { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Suplemento> Suplemento { get; set; }
+        public virtual ICollection<Retencion> Retencion { get; set; }
     }
 }

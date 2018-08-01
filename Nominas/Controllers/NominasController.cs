@@ -18,7 +18,7 @@ namespace Nominas.Controllers
         // GET: Nominas
         public ActionResult Index()
         {
-            var nomina = db.Nomina.Include(n => n.Empleado);
+            var nomina = db.Nomina.Include(n => n.Empleado).Include(r => r.Retencion);
             return View(nomina.ToList());
         }
 
@@ -40,8 +40,24 @@ namespace Nominas.Controllers
         // GET: Nominas/Create
         public ActionResult Create()
         {
-            ViewBag.Codigo_Empleado = new SelectList(db.Empleado, "Codigo_Empleado", "Nombre");
-            return View();
+            var viewModel = new NewNominaViewModel
+            {
+                Nomina = new Nomina(),
+                Afp = new Retencion(),
+                Sfs = new Retencion(),
+                Isr = new Retencion(),
+                SeguroMedico = new Retencion()
+            };
+
+            var empleados = db.Empleado.AsEnumerable().Select(e => new
+            {
+                e.Codigo_Empleado,
+                Empleado = $"{e.Codigo_Empleado}: {e.Nombre} {e.Apellido}"
+            }).ToList();
+
+            ViewBag.Codigo_Empleado = new SelectList(empleados, "Codigo_Empleado", "Empleado");
+
+            return View(viewModel);
         }
 
         // POST: Nominas/Create
@@ -49,6 +65,7 @@ namespace Nominas.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
+<<<<<<< HEAD
         //public ActionResult Create(NewNominaViewModel viewModel)
         //{
         //       var nomina = new Nomina()
@@ -64,8 +81,17 @@ namespace Nominas.Controllers
 
 
         public ActionResult Create([Bind(Include = "Codigo_Nomina,Codigo_Suplemento,Codigo_Empleado,Sueldo")] Nomina nomina)
+=======
+        public ActionResult Create(NewNominaViewModel viewModel)
+>>>>>>> Added Nomina create functionality,  modified Index view to implement changes, Edit functionality is WIP, Delete is untested.
         {
+            if (!ModelState.IsValid)
+            {
+                return View(viewModel);
+            }
+
             try
+<<<<<<< HEAD
             {
                 if (ModelState.IsValid)
                 {
@@ -73,13 +99,48 @@ namespace Nominas.Controllers
                     db.SaveChanges();
                     return RedirectToAction("Index");
                 }
+=======
+            { 
+                var nomina = new Nomina(viewModel.Nomina.Sueldo, viewModel.Nomina.Codigo_Empleado)
+                {
+                    Retencion = new List<Retencion>
+                    {
+                        new Retencion
+                        {
+                            Cantidad = viewModel.Afp.Cantidad,
+                            Nombre = "AFP"
+                        },
+                        new Retencion
+                        {
+                            Cantidad = viewModel.Sfs.Cantidad,
+                            Nombre = "SFS"
+                        },
+                        new Retencion
+                        {
+                            Cantidad = viewModel.Isr.Cantidad,
+                            Nombre = "ISR"
+                        },
+                        new Retencion
+                        {
+                            Cantidad = viewModel.SeguroMedico.Cantidad,
+                            Nombre = "Seguro Medico"
+                        },
+                    }
+                };
+
+                db.Nomina.Add(nomina);
+                db.SaveChanges();
+>>>>>>> Added Nomina create functionality,  modified Index view to implement changes, Edit functionality is WIP, Delete is untested.
             }
             catch (DataException)
             {
                 ModelState.AddModelError("", "Unable to save changes. Try again, and if the problem persists, see your system administrator.");
             }
-            ViewBag.Codigo_Empleado = new SelectList(db.Empleado, "Codigo_Empleado", "Nombre", nomina.Codigo_Empleado);
-            return View(nomina);
+
+            return RedirectToAction("Index");
+
+            //ViewBag.Codigo_Empleado = new SelectList(db.Empleado, "Codigo_Empleado", "Nombre", nomina.Codigo_Empleado);
+            //return View(viewModel);
         }
 
         // GET: Nominas/Edit/5
@@ -103,42 +164,18 @@ namespace Nominas.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult EditPost(int? id)
+        public ActionResult Edit(Nomina nomina)
         {
-            if (id == null)
+            if (ModelState.IsValid)
             {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+                db.Entry(nomina).State = EntityState.Modified;
+                db.SaveChanges();
+                return RedirectToAction("Index");
             }
-            var nominaToUpdate = db.Nomina.Find(id);
-            if (TryUpdateModel(nominaToUpdate, "",
-               new string[] { "Codigo_Empleado", "Nombre", "Sueldo" }))
-            {
-                try
-                {
-                    db.SaveChanges();
 
-                    return RedirectToAction("Index");
-                }
-                catch (DataException /* dex */)
-                {
-                    //Log the error (uncomment dex variable name and add a line here to write a log.
-                    ModelState.AddModelError("", "Unable to save changes. Try again, and if the problem persists, see your system administrator.");
-                }
-            }
-            return View(nominaToUpdate);
+            ViewBag.Codigo_Empleado = new SelectList(db.Empleado, "Codigo_Empleado", "Nombre", nomina.Codigo_Empleado);
+            return View(nomina);
         }
-
-        //public ActionResult Edit([Bind(Include = "Codigo_Nomina,Codigo_Suplemento,Codigo_Empleado,Sueldo")] Nomina nomina)
-        //{
-        //    if (ModelState.IsValid)
-        //    {
-        //        db.Entry(nomina).State = EntityState.Modified;
-        //        db.SaveChanges();
-        //        return RedirectToAction("Index");
-        //    }
-        //    ViewBag.Codigo_Empleado = new SelectList(db.Empleado, "Codigo_Empleado", "Nombre", nomina.Codigo_Empleado);
-        //    return View(nomina);
-        //}
 
         // GET: Nominas/Delete/5
         public ActionResult Delete(int? id, bool? saveChangesError = false)

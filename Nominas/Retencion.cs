@@ -12,20 +12,13 @@ namespace Nominas
     using System;
     using System.Collections.Generic;
     
-    public partial class Suplemento
+    public partial class Retencion
     {
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public Suplemento()
-        {
-            this.Nomina = new HashSet<Nomina>();
-        }
-    
-        public int Codigo_Suplemento { get; set; }
+        public int Codigo_Retencion { get; set; }
+        public int Codigo_Nomina { get; set; }
         public string Nombre { get; set; }
         public decimal Cantidad { get; set; }
-        public string Tipo { get; set; }
     
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Nomina> Nomina { get; set; }
+        public virtual Nomina Nomina { get; set; }
     }
 }

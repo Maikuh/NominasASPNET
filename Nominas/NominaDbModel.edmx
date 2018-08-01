@@ -45,7 +45,7 @@
           <Property Name="Provincia" Type="varchar" MaxLength="50" Nullable="false" />
           <Property Name="Sector" Type="varchar" MaxLength="50" Nullable="false" />
           <Property Name="Calle" Type="varchar" MaxLength="50" Nullable="false" />
-          <Property Name="Codigo_Postal" Type="char" MaxLength="5" />
+          <Property Name="Codigo_Postal" Type="char" MaxLength="5" Nullable="false" />
           <Property Name="TelefonoCasa" Type="char" MaxLength="10" />
           <Property Name="TelefonoMovil" Type="char" MaxLength="10" />
         </EntityType>
@@ -75,26 +75,17 @@
             <PropertyRef Name="Codigo_Nomina" />
           </Key>
           <Property Name="Codigo_Nomina" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="Codigo_Suplemento" Type="int" Nullable="false" />
           <Property Name="Codigo_Empleado" Type="int" Nullable="false" />
           <Property Name="Sueldo" Type="money" Nullable="false" />
         </EntityType>
-        <EntityType Name="Suplemento">
+        <EntityType Name="Retencion">
           <Key>
-            <PropertyRef Name="Codigo_Suplemento" />
+            <PropertyRef Name="Codigo_Retencion" />
           </Key>
-          <Property Name="Codigo_Suplemento" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Codigo_Retencion" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Codigo_Nomina" Type="int" Nullable="false" />
           <Property Name="Nombre" Type="varchar" MaxLength="20" Nullable="false" />
           <Property Name="Cantidad" Type="decimal" Precision="11" Scale="2" Nullable="false" />
-          <Property Name="Tipo" Type="varchar" MaxLength="20" Nullable="false" />
-        </EntityType>
-        <EntityType Name="Suplemento_Nomina">
-          <Key>
-            <PropertyRef Name="Codigo_Suplemento" />
-            <PropertyRef Name="Codigo_Nomina" />
-          </Key>
-          <Property Name="Codigo_Suplemento" Type="int" Nullable="false" />
-          <Property Name="Codigo_Nomina" Type="int" Nullable="false" />
         </EntityType>
         <Association Name="FK_Cargo_Departamento">
           <End Role="Departamento" Type="Self.Departamento" Multiplicity="1" />
@@ -180,27 +171,15 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_Suplemento_Nomina_Nomina">
+        <Association Name="FK_Nomina_Retencion">
           <End Role="Nomina" Type="Self.Nomina" Multiplicity="1" />
-          <End Role="Suplemento_Nomina" Type="Self.Suplemento_Nomina" Multiplicity="*" />
+          <End Role="Retencion" Type="Self.Retencion" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Nomina">
               <PropertyRef Name="Codigo_Nomina" />
             </Principal>
-            <Dependent Role="Suplemento_Nomina">
+            <Dependent Role="Retencion">
               <PropertyRef Name="Codigo_Nomina" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_Suplemento_Nomina_Suplemento">
-          <End Role="Suplemento" Type="Self.Suplemento" Multiplicity="1" />
-          <End Role="Suplemento_Nomina" Type="Self.Suplemento_Nomina" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Suplemento">
-              <PropertyRef Name="Codigo_Suplemento" />
-            </Principal>
-            <Dependent Role="Suplemento_Nomina">
-              <PropertyRef Name="Codigo_Suplemento" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -213,8 +192,7 @@
           <EntitySet Name="Empleado" EntityType="Self.Empleado" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Horario" EntityType="Self.Horario" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Nomina" EntityType="Self.Nomina" Schema="dbo" store:Type="Tables" />
-          <EntitySet Name="Suplemento" EntityType="Self.Suplemento" Schema="dbo" store:Type="Tables" />
-          <EntitySet Name="Suplemento_Nomina" EntityType="Self.Suplemento_Nomina" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Retencion" EntityType="Self.Retencion" Schema="dbo" store:Type="Tables" />
           <AssociationSet Name="FK_Cargo_Departamento" Association="Self.FK_Cargo_Departamento">
             <End Role="Departamento" EntitySet="Departamento" />
             <End Role="Cargo" EntitySet="Cargo" />
@@ -243,13 +221,9 @@
             <End Role="Empleado" EntitySet="Empleado" />
             <End Role="Nomina" EntitySet="Nomina" />
           </AssociationSet>
-          <AssociationSet Name="FK_Suplemento_Nomina_Nomina" Association="Self.FK_Suplemento_Nomina_Nomina">
+          <AssociationSet Name="FK_Nomina_Retencion" Association="Self.FK_Nomina_Retencion">
             <End Role="Nomina" EntitySet="Nomina" />
-            <End Role="Suplemento_Nomina" EntitySet="Suplemento_Nomina" />
-          </AssociationSet>
-          <AssociationSet Name="FK_Suplemento_Nomina_Suplemento" Association="Self.FK_Suplemento_Nomina_Suplemento">
-            <End Role="Suplemento" EntitySet="Suplemento" />
-            <End Role="Suplemento_Nomina" EntitySet="Suplemento_Nomina" />
+            <End Role="Retencion" EntitySet="Retencion" />
           </AssociationSet>
         </EntityContainer>
       </Schema></edmx:StorageModels>
@@ -301,7 +275,7 @@
           <Property Name="Provincia" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
           <Property Name="Sector" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
           <Property Name="Calle" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
-          <Property Name="Codigo_Postal" Type="String" MaxLength="5" FixedLength="true" Unicode="false" />
+          <Property Name="Codigo_Postal" Type="String" MaxLength="5" FixedLength="true" Unicode="false" Nullable="false" />
           <NavigationProperty Name="Empleado" Relationship="Self.FK_Empleado_Direccion" FromRole="Direccion" ToRole="Empleado" />
           <Property Name="TelefonoCasa" Type="String" MaxLength="10" FixedLength="true" Unicode="false" />
           <Property Name="TelefonoMovil" Type="String" MaxLength="10" FixedLength="true" Unicode="false" />
@@ -339,21 +313,10 @@
             <PropertyRef Name="Codigo_Nomina" />
           </Key>
           <Property Name="Codigo_Nomina" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="Codigo_Suplemento" Type="Int32" Nullable="false" />
           <Property Name="Codigo_Empleado" Type="Int32" Nullable="false" />
           <Property Name="Sueldo" Type="Decimal" Precision="19" Scale="4" Nullable="false" />
           <NavigationProperty Name="Empleado" Relationship="Self.FK_Nomina_Empleado" FromRole="Nomina" ToRole="Empleado" />
-          <NavigationProperty Name="Suplemento" Relationship="Self.Suplemento_Nomina" FromRole="Nomina" ToRole="Suplemento" />
-        </EntityType>
-        <EntityType Name="Suplemento">
-          <Key>
-            <PropertyRef Name="Codigo_Suplemento" />
-          </Key>
-          <Property Name="Codigo_Suplemento" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="Nombre" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
-          <Property Name="Cantidad" Type="Decimal" Precision="11" Scale="2" Nullable="false" />
-          <Property Name="Tipo" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
-          <NavigationProperty Name="Nomina" Relationship="Self.Suplemento_Nomina" FromRole="Suplemento" ToRole="Nomina" />
+          <NavigationProperty Name="Retencion" Relationship="NominaDbModel.FK_Nomina_Retencion" FromRole="Nomina" ToRole="Retencion" />
         </EntityType>
         <Association Name="FK_Codigo_Empleado">
           <End Role="Empleado" Type="Self.Empleado" Multiplicity="1" />
@@ -439,10 +402,6 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="Suplemento_Nomina">
-          <End Role="Nomina" Type="Self.Nomina" Multiplicity="*" />
-          <End Role="Suplemento" Type="Self.Suplemento" Multiplicity="*" />
-        </Association>
         <EntityContainer Name="NominaDbContext" annotation:LazyLoadingEnabled="true">
           <EntitySet Name="Asistencia" EntityType="Self.Asistencia" />
           <EntitySet Name="Cargo" EntityType="Self.Cargo" />
@@ -452,7 +411,6 @@
           <EntitySet Name="Empleado" EntityType="Self.Empleado" />
           <EntitySet Name="Horario" EntityType="Self.Horario" />
           <EntitySet Name="Nomina" EntityType="Self.Nomina" />
-          <EntitySet Name="Suplemento" EntityType="Self.Suplemento" />
           <AssociationSet Name="FK_Codigo_Empleado" Association="Self.FK_Codigo_Empleado">
             <End Role="Empleado" EntitySet="Empleado" />
             <End Role="Asistencia" EntitySet="Asistencia" />
@@ -481,11 +439,34 @@
             <End Role="Empleado" EntitySet="Empleado" />
             <End Role="Nomina" EntitySet="Nomina" />
           </AssociationSet>
-          <AssociationSet Name="Suplemento_Nomina" Association="Self.Suplemento_Nomina">
+          <EntitySet Name="Retencion" EntityType="NominaDbModel.Retencion" />
+          <AssociationSet Name="FK_Nomina_Retencion" Association="NominaDbModel.FK_Nomina_Retencion">
             <End Role="Nomina" EntitySet="Nomina" />
-            <End Role="Suplemento" EntitySet="Suplemento" />
+            <End Role="Retencion" EntitySet="Retencion" />
           </AssociationSet>
         </EntityContainer>
+        <EntityType Name="Retencion">
+          <Key>
+            <PropertyRef Name="Codigo_Retencion" />
+          </Key>
+          <Property Name="Codigo_Retencion" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Codigo_Nomina" Type="Int32" Nullable="false" />
+          <Property Name="Nombre" Type="String" Nullable="false" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="Cantidad" Type="Decimal" Nullable="false" Precision="11" Scale="2" />
+          <NavigationProperty Name="Nomina" Relationship="NominaDbModel.FK_Nomina_Retencion" FromRole="Retencion" ToRole="Nomina" />
+        </EntityType>
+        <Association Name="FK_Nomina_Retencion">
+          <End Type="NominaDbModel.Nomina" Role="Nomina" Multiplicity="1" />
+          <End Type="NominaDbModel.Retencion" Role="Retencion" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Nomina">
+              <PropertyRef Name="Codigo_Nomina" />
+            </Principal>
+            <Dependent Role="Retencion">
+              <PropertyRef Name="Codigo_Nomina" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -568,31 +549,22 @@
             <EntityTypeMapping TypeName="NominaDbModel.Nomina">
               <MappingFragment StoreEntitySet="Nomina">
                 <ScalarProperty Name="Codigo_Nomina" ColumnName="Codigo_Nomina" />
-                <ScalarProperty Name="Codigo_Suplemento" ColumnName="Codigo_Suplemento" />
                 <ScalarProperty Name="Codigo_Empleado" ColumnName="Codigo_Empleado" />
                 <ScalarProperty Name="Sueldo" ColumnName="Sueldo" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="Suplemento">
-            <EntityTypeMapping TypeName="NominaDbModel.Suplemento">
-              <MappingFragment StoreEntitySet="Suplemento">
-                <ScalarProperty Name="Codigo_Suplemento" ColumnName="Codigo_Suplemento" />
-                <ScalarProperty Name="Nombre" ColumnName="Nombre" />
+          <EntitySetMapping Name="Retencion">
+            <EntityTypeMapping TypeName="NominaDbModel.Retencion">
+              <MappingFragment StoreEntitySet="Retencion">
                 <ScalarProperty Name="Cantidad" ColumnName="Cantidad" />
-                <ScalarProperty Name="Tipo" ColumnName="Tipo" />
+                <ScalarProperty Name="Nombre" ColumnName="Nombre" />
+                <ScalarProperty Name="Codigo_Nomina" ColumnName="Codigo_Nomina" />
+                <ScalarProperty Name="Codigo_Retencion" ColumnName="Codigo_Retencion" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <AssociationSetMapping Name="Suplemento_Nomina" TypeName="NominaDbModel.Suplemento_Nomina" StoreEntitySet="Suplemento_Nomina">
-            <EndProperty Name="Nomina">
-              <ScalarProperty Name="Codigo_Nomina" ColumnName="Codigo_Nomina" />
-            </EndProperty>
-            <EndProperty Name="Suplemento">
-              <ScalarProperty Name="Codigo_Suplemento" ColumnName="Codigo_Suplemento" />
-            </EndProperty>
-          </AssociationSetMapping>
-        </EntityContainerMapping>
+          </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>
   </edmx:Runtime>

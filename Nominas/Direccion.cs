@@ -7,8 +7,6 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-using System.ComponentModel.DataAnnotations;
-
 namespace Nominas
 {
     using System;
@@ -27,12 +25,7 @@ namespace Nominas
         public string Sector { get; set; }
         public string Calle { get; set; }
         public string Codigo_Postal { get; set; }
-
-        [DataType(DataType.PhoneNumber)]
-        [RegularExpression(@"^\(?([0-9]{3})\)?[-. ]?([0-9]{3})[-. ]?([0-9]{4})$", ErrorMessage = "Not a valid phone number")]
         public string TelefonoCasa { get; set; }
-
-        [DataType(DataType.PhoneNumber)]
         public string TelefonoMovil { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
