@@ -1,0 +1,39 @@
+﻿@model IEnumerable<Nominas.Horario>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Index</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.Hora_Inicio)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Hora_Fin)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.Hora_Inicio)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Hora_Fin)
+        </td>
+        <td>
+            @Html.ActionLink("Edit", "Edit", new { id=item.Codigo_Horario }) |
+            @Html.ActionLink("Details", "Details", new { id=item.Codigo_Horario }) |
+            @Html.ActionLink("Delete", "Delete", new { id=item.Codigo_Horario })
+        </td>
+    </tr>
+}
+
+</table>

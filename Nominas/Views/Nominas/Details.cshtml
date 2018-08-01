@@ -1,0 +1,61 @@
+﻿@model Nominas.Nomina
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>Nomina</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.Codigo_Nomina)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Codigo_Nomina)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Empleado.Nombre)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Empleado.Nombre)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Empleado.Apellido)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Empleado.Apellido)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Sueldo)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Sueldo)
+        </dd>
+
+        @foreach (var ret in Model.Retencion)
+    {
+        <dt>
+            @Html.DisplayName(ret.Nombre)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(modelItem => ret.Cantidad)
+        </dd>
+}
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.Codigo_Nomina }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>
