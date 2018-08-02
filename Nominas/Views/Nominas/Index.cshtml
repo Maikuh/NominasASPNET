@@ -9,6 +9,18 @@
 <p>
     @Html.ActionLink("Create New", "Create")
 </p>
+
+@using (Html.BeginForm())
+{
+    <div class="form-inline mb-3">
+        <div class="form-group ml-auto">
+            <label>Seleccione una fecha</label>
+            @Html.DropDownList("fecha", ViewBag.Fechas as SelectList, new {@class = "form-control mx-2", id = "fechaSelect"})
+            <button class="btn btn-default" type="submit">Filtrar</button>
+        </div>
+    </div>
+}
+
 <table class="table">
     <tr>
         <th>
@@ -35,29 +47,39 @@
         <th></th>
     </tr>
 
-@foreach (var item in Model) {
-    <tr>
-        <td>
-            @Html.DisplayFor(modelItem => item.Empleado.Nombre)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Empleado.Apellido)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Sueldo)
-        </td>
-        @foreach (var ret in item.Retencion)
-        {
+    @foreach (var item in Model)
+    {
+        <tr>
             <td>
-                @Html.DisplayFor(modelItem => ret.Cantidad)
+                @Html.DisplayFor(modelItem => item.Empleado.Nombre)
             </td>
-        }
-        <td>
-            @Html.ActionLink("Edit", "Edit", new { id = item.Codigo_Nomina }) |
-            @Html.ActionLink("Details", "Details", new { id = item.Codigo_Nomina }) |
-            @Html.ActionLink("Delete", "Delete", new { id = item.Codigo_Nomina })
-        </td>
-    </tr>
-}
+            <td>
+                @Html.DisplayFor(modelItem => item.Empleado.Apellido)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Sueldo)
+            </td>
+            @foreach (var ret in item.Retencion)
+            {
+                <td>
+                    @Html.DisplayFor(modelItem => ret.Cantidad)
+                </td>
+            }
+            <td>
+                @Html.ActionLink("Edit", "Edit", new { id = item.Codigo_Nomina }) |
+                @Html.ActionLink("Details", "Details", new { id = item.Codigo_Nomina }) |
+                @Html.ActionLink("Delete", "Delete", new { id = item.Codigo_Nomina })
+            </td>
+        </tr>
+    }
 
 </table>
+
+
+@section Scripts {
+    <script>
+        //$('#fechaSelect').on('change', function() {
+        //    $(this).parents('form').submit();
+        //})
+    </script>
+}

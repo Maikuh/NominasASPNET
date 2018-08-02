@@ -16,8 +16,9 @@ namespace Nominas
     {
         public Retencion()
         {
-            
+
         }
+
         public Retencion(int id, int nominaId, string nombre, decimal cantidad)
         {
             Codigo_Retencion = id;

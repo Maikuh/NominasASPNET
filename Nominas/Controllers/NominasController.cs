@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Data;
 using System.Data.Entity;
@@ -16,9 +17,29 @@ namespace Nominas.Controllers
         private NominaDbContext db = new NominaDbContext();
 
         // GET: Nominas
-        public ActionResult Index()
+        public ViewResult Index(DateTime? fecha)
         {
             var nomina = db.Nomina.Include(n => n.Empleado).Include(r => r.Retencion);
+
+            // Make a list of fechas to populate a Dropdown List in the View
+            var fechas = db.Nomina.AsEnumerable().Select(n => new { fecha = n.Fecha.ToShortDateString() }).Distinct().ToList();
+
+            if (fecha.HasValue)
+            {
+                nomina = nomina.Where(n => n.Fecha == fecha);
+
+                // Set the list of fechas in a ViewBag (subject to change to a model prop)
+                ViewBag.Fechas = new SelectList(fechas, "Fecha", "Fecha", fecha);
+            }
+            else
+            {
+                var defaultFecha = Convert.ToDateTime(fechas.Last().fecha);
+                nomina = nomina.Where(n => n.Fecha == defaultFecha);
+
+                // Set the list of fechas in a ViewBag (subject to change to a model prop)
+                ViewBag.Fechas = new SelectList(fechas, "Fecha", "Fecha", fechas.Last().fecha);
+            }
+
             return View(nomina.ToList());
         }
 

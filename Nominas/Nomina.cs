@@ -7,11 +7,12 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
+using System.ComponentModel.DataAnnotations;
+
 namespace Nominas
 {
     using System;
     using System.Collections.Generic;
-    using System.ComponentModel.DataAnnotations;
     
     public partial class Nomina
     {
@@ -27,10 +28,11 @@ namespace Nominas
             Sueldo = sueldo;
         }
 
-        [Display(Name = "ID Nomina")]
+        [Display(Name = "# Nomina")]
         public int Codigo_Nomina { get; set; }
         public int Codigo_Empleado { get; set; }
         public decimal Sueldo { get; set; }
+        public System.DateTime Fecha { get; set; }
     
         public virtual Empleado Empleado { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]

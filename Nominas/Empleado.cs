@@ -17,8 +17,6 @@ namespace Nominas
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public Empleado()
         {
-            this.Asistencia = new HashSet<Asistencia>();
-            this.Comprobante = new HashSet<Comprobante>();
             this.Nomina = new HashSet<Nomina>();
         }
     
@@ -31,11 +29,7 @@ namespace Nominas
         public int ID_Direccion { get; set; }
         public int Codigo_Horario { get; set; }
     
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Asistencia> Asistencia { get; set; }
         public virtual Cargo Cargo { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Comprobante> Comprobante { get; set; }
         public virtual Direccion Direccion { get; set; }
         public virtual Horario Horario { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]

@@ -22,15 +22,10 @@ namespace Nominas
     
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
-            //modelBuilder.Entity<Nomina>().HasMany<Retencion>(r => r.Retencion)
-            //    .WithRequired(n => n.Nomina).WillCascadeOnDelete(true);
-
             throw new UnintentionalCodeFirstException();
         }
     
-        public virtual DbSet<Asistencia> Asistencia { get; set; }
         public virtual DbSet<Cargo> Cargo { get; set; }
-        public virtual DbSet<Comprobante> Comprobante { get; set; }
         public virtual DbSet<Departamento> Departamento { get; set; }
         public virtual DbSet<Direccion> Direccion { get; set; }
         public virtual DbSet<Empleado> Empleado { get; set; }

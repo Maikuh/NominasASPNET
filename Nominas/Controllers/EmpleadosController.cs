@@ -8,7 +8,6 @@ using System.Web;
 using System.Web.Mvc;
 using Nominas;
 using Nominas.ViewModels;
-using PagedList;
 
 namespace Nominas.Controllers
 {
