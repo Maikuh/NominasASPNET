@@ -17,9 +17,36 @@ namespace Nominas.Controllers
         private NominaDbContext db = new NominaDbContext();
 
         // GET: Nominas
-        public ViewResult Index(DateTime? fecha)
+        public ViewResult Index(DateTime? fecha, string sortOrder, string searchString)
         {
+            ViewBag.CurrentSort = sortOrder;
+            ViewBag.NameSortParm = String.IsNullOrEmpty(sortOrder) ? "name_desc" : "";
+            ViewBag.ApellidoSortParm = sortOrder == "Lastname" ? "lastname_desc" : "Lastname";
+
             var nomina = db.Nomina.Include(n => n.Empleado).Include(r => r.Retencion);
+            nomina = from e in db.Nomina
+                          select e;
+            if (!String.IsNullOrEmpty(searchString))
+            {
+                nomina = nomina.Where(e => e.Empleado.Nombre.Contains(searchString)
+                                       || e.Empleado.Apellido.Contains(searchString));
+            }
+
+            switch (sortOrder)
+            {
+                case "name_desc":
+                    nomina = nomina.OrderByDescending(e => e.Empleado.Nombre);
+                    break;
+                case "Lastname":
+                    nomina = nomina.OrderBy(e => e.Empleado.Apellido);
+                    break;
+                case "lastname_desc":
+                    nomina = nomina.OrderByDescending(e => e.Empleado.Apellido);
+                    break;
+                default:
+                    nomina = nomina.OrderBy(e => e.Empleado.Nombre);
+                    break;
+            }
 
             // Make a list of fechas to populate a Dropdown List in the View
             var fechas = db.Nomina.AsEnumerable().Select(n => new { fecha = n.Fecha.ToShortDateString() }).Distinct().ToList();
