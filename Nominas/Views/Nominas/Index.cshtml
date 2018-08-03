@@ -10,12 +10,18 @@
     @Html.ActionLink("Create New", "Create")
 </p>
 
+
 @using (Html.BeginForm())
 {
+<div class="form-inline mb-3" style="width: 250px; float: left;">
+    @Html.TextBox("SearchString", "", htmlAttributes: new { @class = "form-control mr-2", placeholder = "Buscar por nombre o apellido" })
+    <input type="submit" value="Buscar" class="btn btn-default" />
+</div>
+
     <div class="form-inline mb-3">
         <div class="form-group ml-auto">
             <label>Seleccione una fecha</label>
-            @Html.DropDownList("fecha", ViewBag.Fechas as SelectList, new {@class = "form-control mx-2", id = "fechaSelect"})
+            @Html.DropDownList("fecha", ViewBag.Fechas as SelectList, new { @class = "form-control mx-2", id = "fechaSelect" })
             <button class="btn btn-default" type="submit">Filtrar</button>
         </div>
     </div>
@@ -24,10 +30,12 @@
 <table class="table">
     <tr>
         <th>
-            @Html.DisplayNameFor(model => model.Empleado.Nombre)
+            @Html.ActionLink("Nombre", "Index", new { sortOrder = ViewBag.NameSortParm })
+
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.Empleado.Apellido)
+            @Html.ActionLink("Apellido", "Index", new { sortOrder = ViewBag.ApellidoSortParm })
+
         </th>
         <th>
             @Html.DisplayNameFor(model => model.Sueldo)
@@ -78,8 +86,8 @@
 
 @section Scripts {
     <script>
-        //$('#fechaSelect').on('change', function() {
-        //    $(this).parents('form').submit();
-        //})
+                //$('#fechaSelect').on('change', function() {
+                //    $(this).parents('form').submit();
+                //})
     </script>
 }
