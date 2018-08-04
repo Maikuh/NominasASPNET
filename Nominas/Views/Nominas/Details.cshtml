@@ -35,6 +35,14 @@
         </dd>
 
         <dt>
+            @Html.DisplayNameFor(model => model.Fecha)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Fecha)
+        </dd>
+
+        <dt>
             @Html.DisplayNameFor(model => model.Sueldo)
         </dt>
 
@@ -43,15 +51,15 @@
         </dd>
 
         @foreach (var ret in Model.Retencion)
-    {
-        <dt>
-            @Html.DisplayName(ret.Nombre)
-        </dt>
+        {
+            <dt>
+                @Html.DisplayName(ret.Nombre)
+            </dt>
 
-        <dd>
-            @Html.DisplayFor(modelItem => ret.Cantidad)
-        </dd>
-}
+            <dd>
+                @Html.DisplayFor(modelItem => ret.Cantidad)
+            </dd>
+        }
 
     </dl>
 </div>

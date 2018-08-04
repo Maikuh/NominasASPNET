@@ -4,13 +4,15 @@
     ViewBag.Title = "Details";
 }
 
-<h2>Details</h2>
+<h2>Detalles</h2>
 
 <div>
     <h4>Empleado</h4>
     <hr />
+
+    <h5>Datos personales</h5>
+
     <dl class="dl-horizontal">
-        <h5>Datos personales</h5>
         <dt>
             @Html.DisplayNameFor(model => model.Nombre)
         </dt>
@@ -36,21 +38,21 @@
         </dd>
 
         <dt>
-            @Html.DisplayNameFor(model => model.Fecha_Nacimiento)
+            @Html.DisplayName("Fecha de Nacimiento")
         </dt>
 
         <dd>
-            @Html.DisplayFor(model => model.Fecha_Nacimiento)
+            @Model.Fecha_Nacimiento.ToLongDateString()
         </dd>
 
         <dt>
-            @Html.DisplayNameFor(model => model.Cargo.Nombre)
+            @Html.DisplayNameFor(model => model.Cargo)
         </dt>
 
         <dd>
             @Html.DisplayFor(model => model.Cargo.Nombre)
         </dd>
-        
+
         <dt>
             @Html.DisplayNameFor(model => model.Direccion)
         </dt>
@@ -60,7 +62,7 @@
         </dd>
 
         <dt>
-            @Html.DisplayNameFor(model => model.Horario.Codigo_Horario)
+            @Html.DisplayNameFor(model => model.Horario)
         </dt>
 
         <dd>

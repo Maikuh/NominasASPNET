@@ -126,14 +126,23 @@ namespace Nominas.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
+
             Empleado empleado = db.Empleado.Find(id);
+
             if (empleado == null)
             {
                 return HttpNotFound();
             }
+
+            var horarios = db.Horario.AsEnumerable().Select(s => new
+            {
+                s.Codigo_Horario,
+                Tiempo = $"{s.Hora_Inicio:t} a {s.Hora_Fin:t}"
+            }).ToList();
+
             ViewBag.ID_Cargo = new SelectList(db.Cargo, "ID_Cargo", "Nombre", empleado.ID_Cargo);
-            ViewBag.ID_Direccion = new SelectList(db.Direccion, "ID_Direccion", "Provincia", empleado.ID_Direccion);
-            ViewBag.Codigo_Horario = new SelectList(db.Horario, "Codigo_Horario", "Codigo_Horario", empleado.Codigo_Horario);
+            ViewBag.Codigo_Horario = new SelectList(horarios, "Codigo_Horario", "Tiempo", empleado.Codigo_Horario);
+
             return View(empleado);
         }
 
@@ -142,17 +151,26 @@ namespace Nominas.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "Codigo_Empleado,Nombre,Apellido,Cedula,Fecha_Nacimiento,ID_Cargo,ID_Direccion,Codigo_Horario")] Empleado empleado)
+        public ActionResult Edit(Empleado empleado)
         {
             if (ModelState.IsValid)
             {
+                db.Entry(empleado.Direccion).State = EntityState.Modified;
+
                 db.Entry(empleado).State = EntityState.Modified;
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
-            ViewBag.ID_Cargo = new SelectList(db.Cargo, "ID_Cargo", "Nombre", empleado.ID_Cargo);
-            ViewBag.ID_Direccion = new SelectList(db.Direccion, "ID_Direccion", "Provincia", empleado.ID_Direccion);
-            ViewBag.Codigo_Horario = new SelectList(db.Horario, "Codigo_Horario", "Codigo_Horario", empleado.Codigo_Horario);
+
+            var horarios = db.Horario.AsEnumerable().Select(s => new
+            {
+                s.Codigo_Horario,
+                Tiempo = $"{s.Hora_Inicio:t} a {s.Hora_Fin:t}"
+            }).ToList();
+
+            ViewBag.ID_Cargo = new SelectList(db.Cargo, "ID_Cargo", "Nombre");
+            ViewBag.Codigo_Horario = new SelectList(horarios, "Codigo_Horario", "Tiempo");
+
             return View(empleado);
         }
 
@@ -176,7 +194,19 @@ namespace Nominas.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(int id)
         {
-            Empleado empleado = db.Empleado.Find(id);
+            Empleado empleado = db.Empleado.Single(e => e.Codigo_Empleado == id);
+
+            foreach (var nomina in empleado.Nomina.ToList())
+            {
+                foreach (var retencion in nomina.Retencion.ToList())
+                {
+                    db.Retencion.Remove(retencion);
+                }
+
+                db.Nomina.Remove(nomina);
+            }
+
+            db.Direccion.Remove(empleado.Direccion);
             db.Empleado.Remove(empleado);
             db.SaveChanges();
             return RedirectToAction("Index");

@@ -40,7 +40,7 @@
             @Html.DisplayNameFor(model => model.Direccion.Provincia)
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.Horario.Codigo_Horario)
+            @Html.DisplayNameFor(model => model.Horario)
         </th>
         <th></th>
     </tr>
@@ -58,7 +58,7 @@
                 @Html.DisplayFor(modelItem => item.Cedula)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.Fecha_Nacimiento)
+                @item.Fecha_Nacimiento.ToShortDateString()
             </td>
             <td>
                 @Html.DisplayFor(modelItem => item.Cargo.Nombre)
@@ -67,7 +67,7 @@
                 @Html.DisplayFor(modelItem => item.Direccion.Provincia)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.Horario.Codigo_Horario)
+                @item.Horario.Hora_Inicio.ToString("t") a @item.Horario.Hora_Fin.ToString("t")
             </td>
             <td>
                 @Html.ActionLink("Edit", "Edit", new { id = item.Codigo_Empleado }) |
