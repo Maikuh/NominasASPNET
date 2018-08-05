@@ -9,36 +9,93 @@
 
 </head>
 <body>
-    <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
-        @Html.ActionLink("Nominas", "Index", "Home", null, new { @class = "navbar-brand" })
-        
-        <button type="button" class="navbar-toggler" data-toggle="collapse" data-target=".navbar-collapse">
-            <span class="navbar-toggler-icon"></span>
-        </button>
-        
-        <div class="navbar-collapse collapse">
-            <ul class="nav navbar-nav">
-                <li class="@(ViewContext.RouteData.Values["Action"].ToString() == "Index" ? "nav-item active" : "nav-item")">@Html.ActionLink("Home", "Index", "Home", null, new { @class = "nav-link" })</li>
-                <li class="@(ViewContext.RouteData.Values["Controller"].ToString() == "Empleados" ? "nav-item active" : "nav-item")">@Html.ActionLink("Empleados", "Index", "Empleados", null, new { @class = "nav-link" })</li>
-                <li class="@(ViewContext.RouteData.Values["Controller"].ToString() == "Nominas" ? "nav-item active" : "nav-item")">@Html.ActionLink("Nominas", "Index", "Nominas", null, new { @class = "nav-link" })</li>
-                <li class="@(ViewContext.RouteData.Values["Action"].ToString() == "About" ? "nav-item active" : "nav-item")">@Html.ActionLink("About", "About", "Home", null, new { @class = "nav-link" })</li>
-                <li class="@(ViewContext.RouteData.Values["Action"].ToString() == "Contact" ? "nav-item active" : "nav-item")">@Html.ActionLink("Contact", "Contact", "Home", null, new { @class = "nav-link" })</li>
-            </ul>
+    <div id="barba-wrapper">
+        <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
+            @Html.ActionLink("Nominas", "Index", "Home", null, new { @class = "navbar-brand" })
 
-            @Html.Partial("_LoginPartial")
+            <button type="button" class="navbar-toggler" data-toggle="collapse" data-target=".navbar-collapse">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+
+            <div class="navbar-collapse collapse">
+                <ul class="nav navbar-nav">
+                    @* USE THIS WHEN NOT USING TRANSITIONS *@
+
+                    @*<li class="@(ViewContext.RouteData.Values["Controller"].ToString() == "Home" && ViewContext.RouteData.Values["Action"].ToString() == "Index" ? "nav-item active" : "nav-item")">
+                        @Html.ActionLink("Home", "Index", "Home", null, new {@class = "nav-link"})
+                    </li>
+                    <li class="@(ViewContext.RouteData.Values["Controller"].ToString() == "Empleados" ? "nav-item active" : "nav-item")">@Html.ActionLink("Empleados", "Index", "Empleados", null, new { @class = "nav-link" })</li>
+                    <li class="@(ViewContext.RouteData.Values["Controller"].ToString() == "Nominas" ? "nav-item active" : "nav-item")">@Html.ActionLink("Nominas", "Index", "Nominas", null, new { @class = "nav-link" })</li>
+                    <li class="@(ViewContext.RouteData.Values["Action"].ToString() == "About" ? "nav-item active" : "nav-item")">@Html.ActionLink("About", "About", "Home", null, new { @class = "nav-link" })</li>
+                    <li class="@(ViewContext.RouteData.Values["Action"].ToString() == "Contact" ? "nav-item active" : "nav-item")">@Html.ActionLink("Contact", "Contact", "Home", null, new { @class = "nav-link" })</li>*@
+                        
+                    @* USE THIS WITH TRANSITIONS *@
+                        
+                    <li class="nav-item">@Html.ActionLink("Home", "Index", "Home", null, new { @class = "nav-link" })</li>
+                    <li class="nav-item">@Html.ActionLink("Empleados", "Index", "Empleados", null, new { @class = "nav-link" })</li>
+                    <li class="nav-item">@Html.ActionLink("Nominas", "Index", "Nominas", null, new { @class = "nav-link" })</li>
+                    <li class="nav-item">@Html.ActionLink("About", "About", "Home", null, new { @class = "nav-link" })</li>
+                    <li class="nav-item">@Html.ActionLink("Contact", "Contact", "Home", null, new { @class = "nav-link" })</li>
+                </ul>
+
+                @Html.Partial("_LoginPartial")
+            </div>
+        </nav>
+
+        <div class="container mt-2 barba-container">
+            @RenderBody()
+            <hr />
+            <footer>
+                <p>&copy; @DateTime.Now.Year - Sistema de Nominas</p>
+            </footer>
         </div>
-    </nav>
-
-    <div class="container mt-2">
-        @RenderBody()
-        <hr />
-        <footer>
-            <p>&copy; @DateTime.Now.Year - Sistema de Nominas</p>
-        </footer>
     </div>
 
     @Scripts.Render("~/bundles/jquery")
     @Scripts.Render("~/bundles/bootstrap")
     @RenderSection("scripts", required: false)
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/barba.js/1.0.0/barba.min.js"></script>
+
+    <script>
+        $(document).ready(function() {
+            Barba.Pjax.start();
+            Barba.Prefetch.init();
+
+            var FadeTransition = Barba.BaseTransition.extend({
+                start: function () {
+                    document.body.style.overflow = 'hidden';
+                    Promise
+                        .all([this.newContainerLoading, this.fadeOut()])
+                        .then(this.fadeIn.bind(this));
+                },
+      
+                fadeOut: function() {
+                    return $(this.oldContainer).animate({ opacity: 0 }).promise();
+                },
+      
+                fadeIn: function() {      
+                    var _this = this;
+                    var $el = $(this.newContainer);
+                    document.body.style.overflow = 'visible';
+        
+                    $(this.oldContainer).hide();
+      
+                    $el.css({
+                        visibility : 'visible',
+                        opacity : 0
+                    });
+        
+                    $el.animate({ opacity: 1 }, 400, function() {      
+                        _this.done();
+                    });
+                }
+            });
+      
+            Barba.Pjax.getTransition = function() {    
+                return FadeTransition;
+            };
+        })
+    </script>
 </body>
 </html>

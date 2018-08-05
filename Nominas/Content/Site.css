@@ -21,3 +21,7 @@ textarea {
 .input-validation-error {
     border: 2px solid red;
 }
+
+a.nav-link:focus {
+    color: #fff !important;
+}
