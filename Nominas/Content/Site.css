@@ -22,6 +22,6 @@ textarea {
     border: 2px solid red;
 }
 
-a.nav-link:focus {
-    color: #fff !important;
+.navbar .navbar-nav .nav-item .nav-link:focus {
+    color: #fff;
 }
