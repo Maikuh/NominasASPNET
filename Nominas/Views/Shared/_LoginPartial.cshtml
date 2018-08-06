@@ -1,7 +1,7 @@
 ﻿@using Microsoft.AspNet.Identity
 @if (Request.IsAuthenticated)
 {
-    using (Html.BeginForm("LogOff", "Account", FormMethod.Post, new { id = "logoutForm", @class = "navbar-right" }))
+    using (Html.BeginForm("LogOff", "Account", FormMethod.Post, new { id = "logoutForm", @class = "ml-auto" }))
     {
     @Html.AntiForgeryToken()
 
@@ -9,6 +9,10 @@
         <li class="nav-item">
             @Html.ActionLink("Hello " + User.Identity.GetUserName() + "!", "Index", "Manage", null, new { @class = "nav-link", title = "Manage" })
         </li>
+        @if (User.IsInRole("Admin"))
+        {
+            <li class="nav-item">@Html.ActionLink("Register User", "Register", "Account", null, new { @class = "nav-link", id = "registerLink" })</li>
+        }
         <li class="nav-item"><a href="javascript:document.getElementById('logoutForm').submit()" class="nav-link">Log off</a></li>
     </ul>
     }
@@ -16,7 +20,6 @@
 else
 {
     <ul class="nav navbar-nav ml-auto">
-        <li class="nav-item">@Html.ActionLink("Register", "Register", "Account", null, new { @class = "nav-link", id = "registerLink" })</li>
         <li class="nav-item">@Html.ActionLink("Log in", "Login", "Account", null, new { @class = "nav-link", id = "loginLink" })</li>
     </ul>
 }

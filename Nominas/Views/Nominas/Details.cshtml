@@ -63,7 +63,15 @@
 
     </dl>
 </div>
-<p>
-    @Html.ActionLink("Edit", "Edit", new { id = Model.Codigo_Nomina }) |
+
+@if (User.IsInRole("Contable"))
+{
+    <p>
+        @Html.ActionLink("Edit", "Edit", new { id = Model.Codigo_Nomina }) |
+        @Html.ActionLink("Back to List", "Index")
+    </p>
+}
+else
+{
     @Html.ActionLink("Back to List", "Index")
-</p>
+}

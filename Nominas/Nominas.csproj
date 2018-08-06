@@ -367,6 +367,8 @@
     <Content Include="Views\Nominas\Details.cshtml" />
     <Content Include="Views\Nominas\Edit.cshtml" />
     <Content Include="Views\Nominas\Index.cshtml" />
+    <Content Include="Views\Nominas\IndexDefault.cshtml" />
+    <Content Include="Views\Empleados\IndexDefault.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

@@ -12,6 +12,7 @@ using Nominas.ViewModels;
 
 namespace Nominas.Controllers
 {
+    [Authorize]
     public class NominasController : Controller
     {
         private NominaDbContext db = new NominaDbContext();
@@ -67,7 +68,10 @@ namespace Nominas.Controllers
                 ViewBag.Fechas = new SelectList(fechas, "Fecha", "Fecha", fechas.Last().fecha);
             }
 
-            return View(nomina.ToList());
+            if (User.IsInRole("Contable"))
+                return View(nomina.ToList());
+
+            return View("IndexDefault", nomina.ToList());
         }
 
         // GET: Nominas/Details/5
@@ -86,6 +90,7 @@ namespace Nominas.Controllers
         }
 
         // GET: Nominas/Create
+        [Authorize(Roles = "Contable")]
         public ActionResult Create()
         {
             // Initialize a ViewModel
@@ -114,8 +119,7 @@ namespace Nominas.Controllers
         // POST: Nominas/Create
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
-        [HttpPost]
-        [ValidateAntiForgeryToken]
+        [HttpPost, Authorize(Roles = "Contable"), ValidateAntiForgeryToken]
         public ActionResult Create(NewNominaViewModel viewModel)
         {
             if (!ModelState.IsValid)
@@ -167,6 +171,7 @@ namespace Nominas.Controllers
         }
 
         // GET: Nominas/Edit/5
+        [Authorize(Roles = "Contable")]
         public ActionResult Edit(int? id)
         {
             if (id == null)
@@ -202,8 +207,7 @@ namespace Nominas.Controllers
         // POST: Nominas/Edit/5
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
-        [HttpPost]
-        [ValidateAntiForgeryToken]
+        [HttpPost, Authorize(Roles = "Contable"), ValidateAntiForgeryToken]
         public ActionResult Edit(NewNominaViewModel viewModel)
         {
             if (ModelState.IsValid)
@@ -233,6 +237,7 @@ namespace Nominas.Controllers
         }
 
         // GET: Nominas/Delete/5
+        [Authorize(Roles = "Contable")]
         public ActionResult Delete(int? id, bool? saveChangesError = false)
         {
             if (id == null)
@@ -251,7 +256,7 @@ namespace Nominas.Controllers
 
         // POST: Nominas/Delete/5
         [HttpPost, ActionName("Delete")]
-        [ValidateAntiForgeryToken]
+        [ValidateAntiForgeryToken, Authorize(Roles = "Contable")]
         public ActionResult Delete(int id)
         {
             try

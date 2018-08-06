@@ -11,6 +11,7 @@ using Nominas.ViewModels;
 
 namespace Nominas.Controllers
 {
+    [Authorize]
     public class EmpleadosController : Controller
     {
         private NominaDbContext db = new NominaDbContext();
@@ -54,7 +55,10 @@ namespace Nominas.Controllers
                     break;
             }
 
-            return View(empleados.ToList());
+            if (User.IsInRole("Admin"))
+                return View(empleados.ToList());
+
+            return View("IndexDefault", empleados.ToList());
         }
 
         //public ActionResult Index()
@@ -79,6 +83,7 @@ namespace Nominas.Controllers
         }
 
         // GET: Empleados/Create
+        [Authorize(Roles = "Admin")]
         public ActionResult Create()
         {
             var viewModel = new NewEmpleadoViewModel();
@@ -98,8 +103,7 @@ namespace Nominas.Controllers
         // POST: Empleados/Create
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
-        [HttpPost]
-        [ValidateAntiForgeryToken]
+        [HttpPost, Authorize(Roles = "Admin"), ValidateAntiForgeryToken]
         public ActionResult Create(Empleado empleado)
         {
             if (!ModelState.IsValid)
@@ -120,6 +124,7 @@ namespace Nominas.Controllers
         }
 
         // GET: Empleados/Edit/5
+        [Authorize(Roles = "Admin")]
         public ActionResult Edit(int? id)
         {
             if (id == null)
@@ -149,8 +154,7 @@ namespace Nominas.Controllers
         // POST: Empleados/Edit/5
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
-        [HttpPost]
-        [ValidateAntiForgeryToken]
+        [HttpPost, Authorize(Roles = "Admin"), ValidateAntiForgeryToken]
         public ActionResult Edit(Empleado empleado)
         {
             if (ModelState.IsValid)
@@ -175,6 +179,7 @@ namespace Nominas.Controllers
         }
 
         // GET: Empleados/Delete/5
+        [Authorize(Roles = "Admin")]
         public ActionResult Delete(int? id)
         {
             if (id == null)
@@ -191,7 +196,7 @@ namespace Nominas.Controllers
 
         // POST: Empleados/Delete/5
         [HttpPost, ActionName("Delete")]
-        [ValidateAntiForgeryToken]
+        [ValidateAntiForgeryToken, Authorize(Roles = "Admin")]
         public ActionResult DeleteConfirmed(int id)
         {
             Empleado empleado = db.Empleado.Single(e => e.Codigo_Empleado == id);
