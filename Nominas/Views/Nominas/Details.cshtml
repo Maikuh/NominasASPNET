@@ -1,10 +1,10 @@
 ﻿@model Nominas.Nomina
 
 @{
-    ViewBag.Title = "Details";
+    ViewBag.Title = "Detalles";
 }
 
-<h2>Details</h2>
+<h2>Detalles</h2>
 
 <div>
     <h4>Nomina</h4>
@@ -67,11 +67,11 @@
 @if (User.IsInRole("Contable"))
 {
     <p>
-        @Html.ActionLink("Edit", "Edit", new { id = Model.Codigo_Nomina }) |
-        @Html.ActionLink("Back to List", "Index")
+        @Html.ActionLink("Editar", "Edit", new { id = Model.Codigo_Nomina }) |
+        @Html.ActionLink("Volver a la Lista", "Index")
     </p>
 }
 else
 {
-    @Html.ActionLink("Back to List", "Index")
+    @Html.ActionLink("Volver a la Lista", "Index")
 }

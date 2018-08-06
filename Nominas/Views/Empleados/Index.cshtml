@@ -70,9 +70,9 @@
                 @item.Horario.Hora_Inicio.ToString("t") a @item.Horario.Hora_Fin.ToString("t")
             </td>
             <td>
-                @Html.ActionLink("Edit", "Edit", new { id = item.Codigo_Empleado }) |
-                @Html.ActionLink("Details", "Details", new { id = item.Codigo_Empleado }) |
-                @Html.ActionLink("Delete", "Delete", new { id = item.Codigo_Empleado })
+                @Html.ActionLink("Editar", "Edit", new { id = item.Codigo_Empleado }) |
+                @Html.ActionLink("Detalles", "Details", new { id = item.Codigo_Empleado }) |
+                @Html.ActionLink("Eliminar", "Delete", new { id = item.Codigo_Empleado })
             </td>
         </tr>
     }

@@ -1,7 +1,7 @@
 ﻿@model Nominas.Empleado
 
 @{
-    ViewBag.Title = "Details";
+    ViewBag.Title = "Detalles";
 }
 
 <h2>Detalles</h2>
@@ -75,11 +75,11 @@
 @if (User.IsInRole("Admin"))
 {
     <p>
-        @Html.ActionLink("Edit", "Edit", new { id = Model.Codigo_Empleado }) |
-        @Html.ActionLink("Back to List", "Index")
+        @Html.ActionLink("Editar", "Edit", new { id = Model.Codigo_Empleado }) |
+        @Html.ActionLink("Volver a la Lista", "Index")
     </p>
 }
 else
 {
-    @Html.ActionLink("Back to List", "Index")
+    @Html.ActionLink("Volver a la Lista", "Index")
 }

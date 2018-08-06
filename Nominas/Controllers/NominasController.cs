@@ -129,7 +129,7 @@ namespace Nominas.Controllers
             {
                 // Initialize Nomina with posted values
                 // Set each Retencion's Nombre accordingly
-                var nomina = new Nomina(viewModel.Nomina.Sueldo, viewModel.Nomina.Codigo_Empleado)
+                var nomina = new Nomina(viewModel.Nomina.Sueldo, viewModel.Nomina.Bonificaciones, viewModel.Nomina.Horas_Extras, viewModel.Nomina.Codigo_Empleado)
                 {
                     Retencion = new List<Retencion>
                     {

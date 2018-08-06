@@ -7,13 +7,12 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-using System.ComponentModel.DataAnnotations;
-
 namespace Nominas
 {
     using System;
     using System.Collections.Generic;
-    
+    using System.ComponentModel.DataAnnotations;
+
     public partial class Nomina
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
@@ -22,17 +21,23 @@ namespace Nominas
             this.Retencion = new HashSet<Retencion>();
         }
 
-        public Nomina(decimal sueldo, int empleado)
+        public Nomina(decimal sueldo, decimal? bonus, decimal? horasExtras, int empleado)
         {
             Codigo_Empleado = empleado;
             Sueldo = sueldo;
+            Bonificaciones = bonus;
+            Horas_Extras = horasExtras;
         }
 
         [Display(Name = "# Nomina")]
         public int Codigo_Nomina { get; set; }
         public int Codigo_Empleado { get; set; }
         public decimal Sueldo { get; set; }
-        public System.DateTime Fecha { get; set; }
+        public DateTime Fecha { get; set; }
+
+        [Display(Name = "Horas Extras")]
+        public Nullable<decimal> Horas_Extras { get; set; }
+        public Nullable<decimal> Bonificaciones { get; set; }
     
         public virtual Empleado Empleado { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]

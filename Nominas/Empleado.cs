@@ -7,13 +7,12 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-using System.ComponentModel.DataAnnotations;
-
 namespace Nominas
 {
     using System;
     using System.Collections.Generic;
-    
+    using System.ComponentModel.DataAnnotations;
+
     public partial class Empleado
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
@@ -28,7 +27,7 @@ namespace Nominas
         public string Cedula { get; set; }
 
         [Display(Name = "Fecha de Nacimiento"), DisplayFormat(DataFormatString = "{0:d}", ApplyFormatInEditMode = true)]
-        public System.DateTime Fecha_Nacimiento { get; set; }
+        public DateTime Fecha_Nacimiento { get; set; }
         public int ID_Cargo { get; set; }
         public int ID_Direccion { get; set; }
         public int Codigo_Horario { get; set; }

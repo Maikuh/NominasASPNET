@@ -1,7 +1,7 @@
 ﻿@model Nominas.ViewModels.NewEmpleadoViewModel
 
 @{
-    ViewBag.Title = "Create";
+    ViewBag.Title = "Crear";
 }
 
 <h2>Agregar empleado</h2>
@@ -16,13 +16,13 @@
 
     <h4 class="ml-3">Datos personales</h4>
     <div class="form-row ml-3">
-        <div class="form-group col-md-3">
+        <div class="form-group col-sm-12 col-md-4 col-lg-3">
             @Html.LabelFor(model => model.Nombre, htmlAttributes: new { })
             @Html.EditorFor(model => model.Nombre, new { htmlAttributes = new { @class = "form-control" } })
             @Html.ValidationMessageFor(model => model.Nombre, "", new { @class = "text-danger" })
         </div>
 
-        <div class="form-group col-md-3">
+        <div class="form-group col-sm-12 col-md-4 col-lg-3">
             @Html.LabelFor(model => model.Apellido, htmlAttributes: new { })
             <div>
                 @Html.EditorFor(model => model.Apellido, new { htmlAttributes = new { @class = "form-control" } })
@@ -49,42 +49,44 @@
     <h4 class="ml-3 mt-2">Direccion</h4>
     <!-- START DIRECCION -->
     <div class="form-row ml-3">
-        <div class="form-group col-md-3">
+        <div class="form-group col-sm-12 col-md-4 col-lg-3">
             @Html.LabelFor(model => model.Direccion.Provincia, "Provincia", htmlAttributes: new {})
             @Html.TextBoxFor(m => m.Direccion.Provincia, new {@class = "form-control"})
             @Html.ValidationMessageFor(model => model.Direccion.Provincia, "", new {@class = "text-danger"})
         </div>
 
-        <div class="form-group col-md-3">
+        <div class="form-group col-sm-12 col-md-4 col-lg-3">
             @Html.LabelFor(model => model.Direccion.Sector, "Sector", htmlAttributes: new {})
             @Html.TextBoxFor(m => m.Direccion.Sector, new {@class = "form-control"})
             @Html.ValidationMessageFor(model => model.Direccion.Sector, "", new {@class = "text-danger"})
         </div>
 
-        <div class="form-group col-md-6">
+        <div class="form-group col-sm-12 col-md-6">
             @Html.LabelFor(model => model.Direccion.Calle, "Calle", htmlAttributes: new {})
             @Html.TextBoxFor(m => m.Direccion.Calle, new {@class = "form-control"})
             @Html.ValidationMessageFor(model => model.Direccion.Calle, "", new {@class = "text-danger"})
         </div>
 
-        <div class="form-group col-md-1">
+        <div class="form-group col-sm-12 col-md-2">
             @Html.LabelFor(model => model.Direccion.Codigo_Postal, "Codigo Postal", htmlAttributes: new {})
             @Html.TextBoxFor(m => m.Direccion.Codigo_Postal, new {@class = "form-control"})
             @Html.ValidationMessageFor(model => model.Direccion.Codigo_Postal, "", new {@class = "text-danger"})
         </div>
 
-        <div class="form-group col-md-2 text-right">
-            @Html.LabelFor(model => model.Direccion.TelefonoCasa, "Telefono Casero", htmlAttributes: new {})
-            @Html.TextBoxFor(m => m.Direccion.TelefonoCasa, new {@class = "form-control"})
-            @Html.ValidationMessageFor(model => model.Direccion.TelefonoCasa, "", new {@class = "text-danger"})
+    </div>
+
+    <div class="form-row ml-3">
+        <div class="form-group col-sm-12 col-md-3">
+            @Html.LabelFor(model => model.Direccion.TelefonoCasa, "Telefono Casero", htmlAttributes: new { })
+            @Html.TextBoxFor(m => m.Direccion.TelefonoCasa, new { @class = "form-control" })
+            @Html.ValidationMessageFor(model => model.Direccion.TelefonoCasa, "", new { @class = "text-danger" })
         </div>
 
-        <div class="form-group col-md-2 text-right">
-            @Html.LabelFor(model => model.Direccion.TelefonoMovil, "Telefono Movil", htmlAttributes: new {})
-            @Html.TextBoxFor(m => m.Direccion.TelefonoMovil, new {@class = "form-control"})
-            @Html.ValidationMessageFor(model => model.Direccion.TelefonoMovil, "", new {@class = "text-danger"})
+        <div class="form-group col-sm-12 col-md-3">
+            @Html.LabelFor(model => model.Direccion.TelefonoMovil, "Telefono Movil", htmlAttributes: new { })
+            @Html.TextBoxFor(m => m.Direccion.TelefonoMovil, new { @class = "form-control" })
+            @Html.ValidationMessageFor(model => model.Direccion.TelefonoMovil, "", new { @class = "text-danger" })
         </div>
-
     </div>
     <!-- END DIRECCION-->
 
@@ -107,13 +109,13 @@
 
     <div class="form-group my-2">
         <div class="col-md-10">
-            <input type="submit" value="Create" class="btn btn-default" />
+            <input type="submit" value="Crear" class="btn btn-default" />
         </div>
     </div>
 }
 
 <div>
-    @Html.ActionLink("Back to List", "Index")
+    @Html.ActionLink("Volver a la Lista", "Index")
 </div>
 
 @section Scripts {

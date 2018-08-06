@@ -60,6 +60,8 @@
           <Property Name="Codigo_Nomina" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="Codigo_Empleado" Type="int" Nullable="false" />
           <Property Name="Sueldo" Type="money" Nullable="false" />
+          <Property Name="Horas_Extras" Type="money" />
+          <Property Name="Bonificaciones" Type="money" />
           <Property Name="Fecha" Type="date" Nullable="false" />
         </EntityType>
         <EntityType Name="Retencion">
@@ -247,6 +249,8 @@
           <NavigationProperty Name="Empleado" Relationship="Self.FK_Nomina_Empleado" FromRole="Nomina" ToRole="Empleado" />
           <NavigationProperty Name="Retencion" Relationship="NominaDbModel.FK_Nomina_Retencion" FromRole="Nomina" ToRole="Retencion" />
           <Property Name="Fecha" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="Horas_Extras" Type="Decimal" Precision="19" Scale="4" />
+          <Property Name="Bonificaciones" Type="Decimal" Precision="19" Scale="4" />
         </EntityType>
         <Association Name="FK_Cargo_Departamento">
           <End Role="Departamento" Type="Self.Departamento" Multiplicity="1" />
@@ -425,6 +429,8 @@
           <EntitySetMapping Name="Nomina">
             <EntityTypeMapping TypeName="NominaDbModel.Nomina">
               <MappingFragment StoreEntitySet="Nomina">
+                <ScalarProperty Name="Bonificaciones" ColumnName="Bonificaciones" />
+                <ScalarProperty Name="Horas_Extras" ColumnName="Horas_Extras" />
                 <ScalarProperty Name="Fecha" ColumnName="Fecha" />
                 <ScalarProperty Name="Codigo_Nomina" ColumnName="Codigo_Nomina" />
                 <ScalarProperty Name="Codigo_Empleado" ColumnName="Codigo_Empleado" />
