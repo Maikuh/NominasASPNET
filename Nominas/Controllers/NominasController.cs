@@ -36,9 +36,8 @@ namespace Nominas.Controllers
 
             ViewBag.CurrentFilter = searchString;
 
-
-
             var nomina = db.Nomina.Include(n => n.Empleado).Include(r => r.Retencion);
+
             nomina = from e in db.Nomina
                           select e;
             if (!String.IsNullOrEmpty(searchString))
@@ -82,7 +81,7 @@ namespace Nominas.Controllers
                 ViewBag.Fechas = new SelectList(fechas, "Fecha", "Fecha", fechas.Last().fecha);
             }
 
-            int pageSize = 3;
+            int pageSize = 5;
             int pageNumber = (page ?? 1);
 
             if (User.IsInRole("Contable"))

@@ -38,11 +38,9 @@ namespace Nominas.Controllers
 
             ViewBag.CurrentFilter = searchString;
 
-
-
-
             var empleados = from e in db.Empleado
                            select e;
+
             if (!String.IsNullOrEmpty(searchString))
             {
                 empleados = empleados.Where(e => e.Nombre.Contains(searchString)
@@ -70,7 +68,7 @@ namespace Nominas.Controllers
                     empleados = empleados.OrderBy(e => e.Nombre);
                     break;
             }
-            int pageSize = 3;
+            int pageSize = 5;
             int pageNumber = (page ?? 1);
 
             if (User.IsInRole("Admin"))

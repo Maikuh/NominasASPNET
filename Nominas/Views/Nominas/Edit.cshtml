@@ -4,71 +4,118 @@
     ViewBag.Title = "Editar";
 }
 
-<h2>Editar</h2>
+@Styles.Render("~/Content/jqueryui")
 
+<h2>Editar</h2>
 
 @using (Html.BeginForm())
 {
     @Html.AntiForgeryToken()
-    
+
     <div class="form-horizontal">
         <h4>Nomina</h4>
         <hr />
         @Html.ValidationSummary(true, "", new { @class = "text-danger" })
         @Html.HiddenFor(model => model.Nomina.Codigo_Nomina)
 
-        <div class="form-group">
-            @Html.LabelFor(model => model.Nomina.Sueldo, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.Nomina.Sueldo, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.Nomina.Sueldo, "", new { @class = "text-danger" })
+        @* LEFT *@
+        <div class="row">
+            <div class="col-md-4">
+                <div class="form-group">
+                    @Html.LabelFor(model => model.Nomina.Sueldo, htmlAttributes: new { @class = "col-md-2" })
+                    <div class="col-md-12">
+                        @Html.EditorFor(model => model.Nomina.Sueldo, new { htmlAttributes = new { @class = "form-control" } })
+                        @Html.ValidationMessageFor(model => model.Nomina.Sueldo, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    @Html.LabelFor(model => model.Nomina.Bonificaciones, htmlAttributes: new { @class = "col-md-2" })
+                    <div class="col-md-8">
+                        @Html.EditorFor(model => model.Nomina.Bonificaciones, new { htmlAttributes = new { @class = "form-control", type = "number" } })
+                        @Html.ValidationMessageFor(model => model.Nomina.Bonificaciones, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    @Html.LabelFor(model => model.Nomina.Horas_Extras, htmlAttributes: new { @class = "col-md-6" })
+                    <div class="col-md-8">
+                        @Html.EditorFor(model => model.Nomina.Horas_Extras, new { htmlAttributes = new { @class = "form-control", type = "number" } })
+                        @Html.ValidationMessageFor(model => model.Nomina.Horas_Extras, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    @Html.LabelFor(model => model.Nomina.Fecha, htmlAttributes: new { @class = "col-md-6" })
+                    <div class="col-md-8">
+                        @Html.EditorFor(model => model.Nomina.Fecha, new { htmlAttributes = new { @class = "form-control", type = "text" } })
+                        @Html.ValidationMessageFor(model => model.Nomina.Fecha, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+
             </div>
+            @* END LEFT *@
+
+            @* MIDDLE *@
+            <div class="col-md-4">
+                <div class="form-group">
+                    @Html.LabelFor(m => m.Afp.Cantidad, "AFP", htmlAttributes: new { @class = "col-md-4" })
+                    <div class="col-md-12">
+                        @Html.EditorFor(m => m.Afp.Cantidad, new { htmlAttributes = new { @class = "form-control", @readonly = true } })
+                        @Html.ValidationMessageFor(m => m.Afp.Cantidad, "", new { @class = "text-danger" })
+                        @Html.HiddenFor(m => m.Afp.Codigo_Nomina)
+                        @Html.HiddenFor(m => m.Afp.Codigo_Retencion)
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    @Html.LabelFor(m => m.Sfs.Cantidad, "SFS", htmlAttributes: new { @class = "col-md-4" })
+                    <div class="col-md-12">
+                        @Html.EditorFor(m => m.Sfs.Cantidad, new { htmlAttributes = new { @class = "form-control", @readonly = true } })
+                        @Html.ValidationMessageFor(m => m.Sfs.Cantidad, "", new { @class = "text-danger" })
+                        @Html.HiddenFor(m => m.Sfs.Codigo_Nomina)
+                        @Html.HiddenFor(m => m.Sfs.Codigo_Retencion)
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label class="col-md-12">Total TSS</label>
+                    <div class="col-md-12" id="totalTss">
+                        0.00
+                    </div>
+                </div>
+            </div>
+            @* END MIDDLE *@
+
+            @* RIGHT *@
+            <div class="col-md-4">
+                <div class="form-group">
+                    @Html.LabelFor(m => m.Isr.Cantidad, "ISR", htmlAttributes: new { @class = "col-md-4" })
+                    <div class="col-md-10">
+                        @Html.EditorFor(m => m.Isr.Cantidad, new { htmlAttributes = new { @class = "form-control", @readonly = true } })
+                        @Html.ValidationMessageFor(m => m.Isr.Cantidad, "", new { @class = "text-danger" })
+                        @Html.HiddenFor(m => m.Isr.Codigo_Nomina)
+                        @Html.HiddenFor(m => m.Isr.Codigo_Retencion)
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    @Html.LabelFor(m => m.SeguroMedico.Cantidad, "Seguro Medico", htmlAttributes: new { @class = "col-md-4" })
+                    <div class="col-md-10">
+                        @Html.EditorFor(m => m.SeguroMedico.Cantidad, new { htmlAttributes = new { @class = "form-control", @readonly = true } })
+                        @Html.ValidationMessageFor(m => m.SeguroMedico.Cantidad, "", new { @class = "text-danger" })
+                        @Html.HiddenFor(m => m.SeguroMedico.Codigo_Nomina)
+                        @Html.HiddenFor(m => m.SeguroMedico.Codigo_Retencion)
+                    </div>
+                </div>
+            </div>
+
         </div>
 
-        <div class="form-group">
-            @Html.LabelFor(m => m.Afp.Cantidad, "AFP", htmlAttributes: new { @class = "control-label col-md-4" })
-            <div class="col-md-10">
-                @Html.EditorFor(m => m.Afp.Cantidad, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(m => m.Afp.Cantidad, "", new { @class = "text-danger" })
-                @Html.HiddenFor(m => m.Afp.Codigo_Nomina)
-                @Html.HiddenFor(m => m.Afp.Codigo_Retencion)
-            </div>
-        </div>
-        
-        <div class="form-group">
-            @Html.LabelFor(m => m.Sfs.Cantidad, "SFS", htmlAttributes: new { @class = "control-label col-md-4" })
-            <div class="col-md-10">
-                @Html.EditorFor(m => m.Sfs.Cantidad, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(m => m.Sfs.Cantidad, "", new { @class = "text-danger" })
-                @Html.HiddenFor(m => m.Sfs.Codigo_Nomina)
-                @Html.HiddenFor(m => m.Sfs.Codigo_Retencion)
-            </div>
-        </div>
-        
-        <div class="form-group">
-            @Html.LabelFor(m => m.Isr.Cantidad, "ISR", htmlAttributes: new { @class = "control-label col-md-4" })
-            <div class="col-md-10">
-                @Html.EditorFor(m => m.Isr.Cantidad, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(m => m.Isr.Cantidad, "", new { @class = "text-danger" })
-                @Html.HiddenFor(m => m.Isr.Codigo_Nomina)
-                @Html.HiddenFor(m => m.Isr.Codigo_Retencion)
-            </div>
-        </div>
-        
-        <div class="form-group">
-            @Html.LabelFor(m => m.SeguroMedico.Cantidad, "Seguro Medico", htmlAttributes: new { @class = "control-label col-md-4" })
-            <div class="col-md-10">
-                @Html.EditorFor(m => m.SeguroMedico.Cantidad, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(m => m.SeguroMedico.Cantidad, "", new { @class = "text-danger" })
-                @Html.HiddenFor(m => m.SeguroMedico.Codigo_Nomina)
-                @Html.HiddenFor(m => m.SeguroMedico.Codigo_Retencion)
-            </div>
-        </div>
-        
         @Html.HiddenFor(m => m.Nomina.Codigo_Empleado)
 
         <div class="form-group">
-            <div class="col-md-offset-2 col-md-10">
+            <div class="col-md-10">
                 <input type="submit" value="Guardar" class="btn btn-default" />
             </div>
         </div>
@@ -79,6 +126,73 @@
     @Html.ActionLink("Volver a la Lista", "Index")
 </div>
 
+<script>
+    $(function () {
+        $('#Nomina_Sueldo').keyup(function () {
+            calc();
+        });
+
+        $('#SeguroMedico_Cantidad').keyup(function () {
+            calc();
+        });
+
+        $('#Nomina_Bonificaciones').keyup(function () {
+            calc();
+        });
+
+        $('#Nomina_Horas_Extras').keyup(function () {
+            calc();
+        });
+
+        $('#Nomina_Fecha').datepicker({
+            dateFormat: 'mm/dd/yy',
+            changeMonth: true,
+            changeYear: true,
+            onClose: function (dateText, inst) {
+                $(this).datepicker('setDate', new Date(inst.selectedYear, inst.selectedMonth, 28));
+            }
+        });
+
+
+        function calc() {
+            var sueldo = Number($('#Nomina_Sueldo').val());
+            var bonus = Number($('#Nomina_Bonificaciones').val());
+            var extras = Number($('#Nomina_Horas_Extras').val());
+            var sueldoTotal = sueldo + bonus + extras;
+            var sinExtras = sueldo + bonus;
+            var seguroMedico = Number($('#SeguroMedico_Cantidad').val());
+
+            var sfs = sinExtras * 0.0304;
+            var afp = sinExtras * 0.0287;
+            var totalTss = sfs + afp;
+
+            var rentaImponible = sueldoTotal - totalTss;
+            var rentaAnual = rentaImponible * 12;
+
+            if (sueldo > 34685) {
+                var isr = (rentaAnual < 416220.01
+                    ? 0
+                    : (rentaAnual < 624329.01
+                        ? (rentaAnual - 416220.01) * 0.15
+                        : (rentaAnual < 867123.01
+                            ? 31216 + ((rentaAnual - 624329.01) * 0.20)
+                            : (rentaAnual >= 867123.01 ? 79776 + ((rentaAnual - 867123.01) * 0.25) : 0)))) / 12;
+            }
+            var totalImp = parseFloat(totalTss + isr + seguroMedico);
+
+            $('#rentaImponible').html(rentaImponible);
+            $('#Afp_Cantidad').val(afp.toFixed(2));
+            $('#Sfs_Cantidad').val(sfs.toFixed(2));
+            $('#totalTss').html(totalTss.toFixed(2));
+
+            $('#Isr_Cantidad').val(isr.toFixed(2));
+
+            $('#totalImp').html(totalImp.toFixed(2));
+        }
+    });
+</script>
+
 @section Scripts {
     @Scripts.Render("~/bundles/jqueryval")
+    @Scripts.Render("~/bundles/jqueryui")
 }

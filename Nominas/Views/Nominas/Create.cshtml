@@ -4,12 +4,9 @@
     ViewBag.Title = "Crear";
 }
 
-<h2>Crear</h2>
+@Styles.Render("~/Content/jqueryui")
 
-@section stylesheets
-{
-    <link rel="stylesheet" href="https://code.jquery.com/ui/1.12.1/themes/start/jquery-ui.css">
-}
+<h2>Crear</h2>
 
 @using (Html.BeginForm())
 {
@@ -57,7 +54,7 @@
                 <div class="form-group">
                     @Html.LabelFor(model => model.Nomina.Fecha, htmlAttributes: new { @class = "col-md-6" })
                     <div class="col-md-8">
-                        @Html.EditorFor(model => model.Nomina.Fecha, new { htmlAttributes = new { @class = "form-control", type = "text" } })
+                        @Html.EditorFor(model => model.Nomina.Fecha, new { htmlAttributes = new { @class = "form-control", type = "text", autocomplete = "off" } })
                         @Html.ValidationMessageFor(model => model.Nomina.Fecha, "", new { @class = "text-danger" })
                     </div>
                 </div>
@@ -132,74 +129,74 @@
     @Html.ActionLink("Volver a la Lista", "Index")
 </div>
 
-@section Scripts {
-    @Scripts.Render("~/bundles/jqueryval")
+<script>
+    $(function () {
+        $('#Nomina_Sueldo').keyup(function () {
+            calc();
+        });
 
-    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.min.js"></script>
-    <script>
-        $(function () {
-            $('#Nomina_Sueldo').keyup(function () {
-                calc();
-            });
+        $('#SeguroMedico_Cantidad').keyup(function () {
+            calc();
+        });
 
-            $('#SeguroMedico_Cantidad').keyup(function () {
-                calc();
-            });
+        $('#Nomina_Bonificaciones').keyup(function () {
+            calc();
+        });
 
-            $('#Nomina_Bonificaciones').keyup(function () {
-                calc();
-            });
+        $('#Nomina_Horas_Extras').keyup(function () {
+            calc();
+        });
 
-            $('#Nomina_Horas_Extras').keyup(function () {
-                calc();
-            });
-
-            $('#Nomina_Fecha').datepicker({
-                dateFormat: 'mm/dd/yy',
-                changeMonth: true,
-                changeYear: true,
-                onClose: function (dateText, inst) {
-                    $(this).datepicker('setDate', new Date(inst.selectedYear, inst.selectedMonth, 31));
-                }
-            });
-            
-
-            function calc() {
-                var sueldo = Number($('#Nomina_Sueldo').val());
-                var bonus = Number($('#Nomina_Bonificaciones').val());
-                var extras = Number($('#Nomina_Horas_Extras').val());
-                var sueldoTotal = sueldo + bonus + extras;
-                //var sinExtras = sueldo - extras;
-                var sinExtras = sueldo + bonus;
-                var seguroMedico = Number($('#SeguroMedico_Cantidad').val());
-
-                var sfs = sinExtras * 0.0304;
-                var afp = sinExtras * 0.0287;
-                var totalTss = sfs + afp;
-
-                var rentaImponible = sueldoTotal - totalTss;
-                var rentaAnual = rentaImponible * 12;
-
-                if (sueldo > 34685) {
-                    var isr = (rentaAnual < 416220.01
-                        ? 0
-                        : (rentaAnual < 624329.01
-                            ? (rentaAnual - 416220.01) * 0.15
-                            : (rentaAnual < 867123.01
-                                ? 31216 + ((rentaAnual - 624329.01) * 0.20)
-                                : (rentaAnual >= 867123.01 ? 79776 + ((rentaAnual - 867123.01) * 0.25) : 0)))) / 12;
-                }
-                var totalImp = parseFloat(totalTss + isr + seguroMedico);
-
-                $('#rentaImponible').html(rentaImponible);
-                $('#Afp_Cantidad').val(afp.toFixed(2));
-                $('#Sfs_Cantidad').val(sfs.toFixed(2));
-                $('#totalTss').html(totalTss.toFixed(2));
-
-                $('#Isr_Cantidad').val(isr.toFixed(2));
-
-                $('#totalImp').html(totalImp.toFixed(2));
+        $('#Nomina_Fecha').datepicker({
+            dateFormat: 'mm/dd/yy',
+            changeMonth: true,
+            changeYear: true,
+            onClose: function (dateText, inst) {
+                $(this).datepicker('setDate', new Date(inst.selectedYear, inst.selectedMonth, 28));
             }
         });
-    </script>
+
+
+        function calc() {
+            var sueldo = Number($('#Nomina_Sueldo').val());
+            var bonus = Number($('#Nomina_Bonificaciones').val());
+            var extras = Number($('#Nomina_Horas_Extras').val());
+            var sueldoTotal = sueldo + bonus + extras;
+            var sinExtras = sueldo + bonus;
+            var seguroMedico = Number($('#SeguroMedico_Cantidad').val());
+
+            var sfs = sinExtras * 0.0304;
+            var afp = sinExtras * 0.0287;
+            var totalTss = sfs + afp;
+
+            var rentaImponible = sueldoTotal - totalTss;
+            var rentaAnual = rentaImponible * 12;
+
+            if (sueldo > 34685) {
+                var isr = (rentaAnual < 416220.01
+                    ? 0
+                    : (rentaAnual < 624329.01
+                        ? (rentaAnual - 416220.01) * 0.15
+                        : (rentaAnual < 867123.01
+                            ? 31216 + ((rentaAnual - 624329.01) * 0.20)
+                            : (rentaAnual >= 867123.01 ? 79776 + ((rentaAnual - 867123.01) * 0.25) : 0)))) / 12;
+            }
+            var totalImp = parseFloat(totalTss + isr + seguroMedico);
+
+            $('#rentaImponible').html(rentaImponible);
+            $('#Afp_Cantidad').val(afp.toFixed(2));
+            $('#Sfs_Cantidad').val(sfs.toFixed(2));
+            $('#totalTss').html(totalTss.toFixed(2));
+
+            $('#Isr_Cantidad').val(isr.toFixed(2));
+
+            $('#totalImp').html(totalImp.toFixed(2));
+        }
+    });
+</script>
+
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+    @Scripts.Render("~/bundles/jqueryui")
 }
