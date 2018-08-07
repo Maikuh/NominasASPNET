@@ -9,6 +9,7 @@ using System.Web;
 using System.Web.Mvc;
 using Nominas;
 using Nominas.ViewModels;
+using PagedList;
 
 namespace Nominas.Controllers
 {
@@ -18,11 +19,24 @@ namespace Nominas.Controllers
         private NominaDbContext db = new NominaDbContext();
 
         // GET: Nominas
-        public ViewResult Index(DateTime? fecha, string sortOrder, string searchString)
-        {
-            ViewBag.CurrentSort = sortOrder;
+        public ViewResult Index(DateTime? fecha, string sortOrder, string currentFilter, string searchString, int? page)
+            {
+                ViewBag.CurrentSort = sortOrder;
             ViewBag.NameSortParm = String.IsNullOrEmpty(sortOrder) ? "name_desc" : "";
             ViewBag.ApellidoSortParm = sortOrder == "Lastname" ? "lastname_desc" : "Lastname";
+
+            if (searchString != null)
+            {
+                page = 1;
+            }
+            else
+            {
+                searchString = currentFilter;
+            }
+
+            ViewBag.CurrentFilter = searchString;
+
+
 
             var nomina = db.Nomina.Include(n => n.Empleado).Include(r => r.Retencion);
             nomina = from e in db.Nomina
@@ -68,10 +82,13 @@ namespace Nominas.Controllers
                 ViewBag.Fechas = new SelectList(fechas, "Fecha", "Fecha", fechas.Last().fecha);
             }
 
-            if (User.IsInRole("Contable"))
-                return View(nomina.ToList());
+            int pageSize = 3;
+            int pageNumber = (page ?? 1);
 
-            return View("IndexDefault", nomina.ToList());
+            if (User.IsInRole("Contable"))
+                return View(nomina.ToPagedList(pageNumber, pageSize));
+
+            return View("IndexDefault", nomina.ToPagedList(pageNumber, pageSize));
         }
 
         // GET: Nominas/Details/5

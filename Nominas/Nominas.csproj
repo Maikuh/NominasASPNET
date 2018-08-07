@@ -251,7 +251,10 @@
     <Compile Include="ViewModels\NewNominaViewModel.cs" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Content\avatar.png" />
     <Content Include="Content\bootstrap.min.css" />
+    <Content Include="Content\employee.png" />
+    <Content Include="Content\group.png" />
     <Content Include="Content\PagedList.css" />
     <Content Include="favicon.ico" />
     <Content Include="Global.asax" />
