@@ -13,7 +13,7 @@
 </p>
 
 
-@using (Html.BeginForm("Index", "Empleados", FormMethod.Get))
+@using (Html.BeginForm())
 {
     <div class="form-inline mb-3">
         <div class="form-group mr-auto">
@@ -76,14 +76,41 @@
                 </td>
             }
             <td>
-                @Html.ActionLink("Editar", "Edit", new { id = item.Codigo_Nomina }) |
-                @Html.ActionLink("Detalles", "Details", new { id = item.Codigo_Nomina }) |
-                @Html.ActionLink("Eliminar", "Delete", new { id = item.Codigo_Nomina })
+                @Html.ActionLink("Editar", "Edit", new { id = item.Codigo_Nomina }, new {@class = "btn btn-link p-0"}) |
+                @Html.ActionLink("Detalles", "Details", new { id = item.Codigo_Nomina }, new { @class = "btn btn-link p-0" }) |
+                @*@Html.ActionLink("Eliminar", "Delete", new { id = item.Codigo_Nomina })*@
+                <button class="btn btn-link p-0" data-toggle="modal" data-target="#exampleModal" data-id="@item.Codigo_Nomina">Eliminar</button>
             </td>
         </tr>
     }
 
 </table>
+
+<!-- Modal -->
+<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Eliminar Nomina</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                Esta seguro que desea borrar esta entrada?
+            </div>
+            <div class="modal-footer">
+                @using (Html.BeginForm())
+                {
+                    @Html.AntiForgeryToken()
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
+                    <button type="submit" class="btn btn-primary">Eliminar</button>
+                }
+            </div>
+        </div>
+    </div>
+</div>
+
 <br />
 Pagina @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber) de @Model.PageCount
 
@@ -92,8 +119,39 @@ Pagina @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber) de @Model.Pa
 
 @section Scripts {
     <script>
-                                        //$('#fechaSelect').on('change', function() {
-                                        //    $(this).parents('form').submit();
-                                        //})
+        $(function() {
+            //$('.del-nomina').click(function () {
+            //    var button = $(this);
+
+            //    $('#exampleModal').modal();
+
+            //});
+
+            $('#exampleModal').on('show.bs.modal', function (e) {
+                var button = $(e.relatedTarget);
+                var id = button.data('id');
+
+                var modal = $(this);
+
+                modal.find('.modal-footer').on('submit', function (evt) {
+                    var token = $(this).find('input[name="__RequestVerificationToken"]').val();
+
+                    $.ajax({
+                        url: '@Url.Action("Delete")/' + id,
+                        data: { __RequestVerificationToken: token },
+                        method: "POST",
+                        type: "POST",
+                        success: function() {
+                            modal.modal('hide');
+                            location.reload();
+                        }
+                    });
+                });
+            });
+
+        });
+        //$('#fechaSelect').on('change', function() {
+        //    $(this).parents('form').submit();
+        //})
     </script>
 }

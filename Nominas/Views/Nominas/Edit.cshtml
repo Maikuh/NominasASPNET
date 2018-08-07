@@ -13,7 +13,7 @@
     @Html.AntiForgeryToken()
 
     <div class="form-horizontal">
-        <h4>Nomina</h4>
+        <h4>Nomina: <span class="text-muted">@Model.Nomina.Empleado.FullName()</span></h4>
         <hr />
         @Html.ValidationSummary(true, "", new { @class = "text-danger" })
         @Html.HiddenFor(model => model.Nomina.Codigo_Nomina)
@@ -23,7 +23,10 @@
             <div class="col-md-4">
                 <div class="form-group">
                     @Html.LabelFor(model => model.Nomina.Sueldo, htmlAttributes: new { @class = "col-md-2" })
-                    <div class="col-md-12">
+                    <div class="col-md-8 input-group">
+                        <div class="input-group-prepend">
+                            <span class="input-group-text">RD$</span>
+                        </div>
                         @Html.EditorFor(model => model.Nomina.Sueldo, new { htmlAttributes = new { @class = "form-control" } })
                         @Html.ValidationMessageFor(model => model.Nomina.Sueldo, "", new { @class = "text-danger" })
                     </div>
@@ -31,7 +34,10 @@
 
                 <div class="form-group">
                     @Html.LabelFor(model => model.Nomina.Bonificaciones, htmlAttributes: new { @class = "col-md-2" })
-                    <div class="col-md-8">
+                    <div class="col-md-8 input-group">
+                        <div class="input-group-prepend">
+                            <span class="input-group-text">RD$</span>
+                        </div>
                         @Html.EditorFor(model => model.Nomina.Bonificaciones, new { htmlAttributes = new { @class = "form-control", type = "number" } })
                         @Html.ValidationMessageFor(model => model.Nomina.Bonificaciones, "", new { @class = "text-danger" })
                     </div>
@@ -39,7 +45,10 @@
 
                 <div class="form-group">
                     @Html.LabelFor(model => model.Nomina.Horas_Extras, htmlAttributes: new { @class = "col-md-6" })
-                    <div class="col-md-8">
+                    <div class="col-md-8 input-group">
+                        <div class="input-group-prepend">
+                            <span class="input-group-text">RD$</span>
+                        </div>
                         @Html.EditorFor(model => model.Nomina.Horas_Extras, new { htmlAttributes = new { @class = "form-control", type = "number" } })
                         @Html.ValidationMessageFor(model => model.Nomina.Horas_Extras, "", new { @class = "text-danger" })
                     </div>
@@ -48,7 +57,7 @@
                 <div class="form-group">
                     @Html.LabelFor(model => model.Nomina.Fecha, htmlAttributes: new { @class = "col-md-6" })
                     <div class="col-md-8">
-                        @Html.EditorFor(model => model.Nomina.Fecha, new { htmlAttributes = new { @class = "form-control", type = "text" } })
+                        @Html.EditorFor(model => model.Nomina.Fecha, new { htmlAttributes = new { @class = "form-control", type = "text", autocomplete = "off" } })
                         @Html.ValidationMessageFor(model => model.Nomina.Fecha, "", new { @class = "text-danger" })
                     </div>
                 </div>
@@ -60,7 +69,10 @@
             <div class="col-md-4">
                 <div class="form-group">
                     @Html.LabelFor(m => m.Afp.Cantidad, "AFP", htmlAttributes: new { @class = "col-md-4" })
-                    <div class="col-md-12">
+                    <div class="col-md-12 input-group">
+                        <div class="input-group-prepend">
+                            <span class="input-group-text">RD$</span>
+                        </div>
                         @Html.EditorFor(m => m.Afp.Cantidad, new { htmlAttributes = new { @class = "form-control", @readonly = true } })
                         @Html.ValidationMessageFor(m => m.Afp.Cantidad, "", new { @class = "text-danger" })
                         @Html.HiddenFor(m => m.Afp.Codigo_Nomina)
@@ -70,7 +82,10 @@
 
                 <div class="form-group">
                     @Html.LabelFor(m => m.Sfs.Cantidad, "SFS", htmlAttributes: new { @class = "col-md-4" })
-                    <div class="col-md-12">
+                    <div class="col-md-12 input-group">
+                        <div class="input-group-prepend">
+                            <span class="input-group-text">RD$</span>
+                        </div>
                         @Html.EditorFor(m => m.Sfs.Cantidad, new { htmlAttributes = new { @class = "form-control", @readonly = true } })
                         @Html.ValidationMessageFor(m => m.Sfs.Cantidad, "", new { @class = "text-danger" })
                         @Html.HiddenFor(m => m.Sfs.Codigo_Nomina)
@@ -78,10 +93,18 @@
                     </div>
                 </div>
 
-                <div class="form-group">
-                    <label class="col-md-12">Total TSS</label>
-                    <div class="col-md-12" id="totalTss">
-                        0.00
+                <div class="row my-4">
+                    <div class="col-md-6 mb-2">
+                        <label class="col-md-12 font-weight-bold">Total TSS</label>
+                        <div class="col-md-12" id="totalTss">
+                            RD$ 0.00
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <label class="col-md-12 font-weight-bold">Renta Imponible</label>
+                        <div class="col-md-12" id="rentaImponible">
+                            RD$ 0.00
+                        </div>
                     </div>
                 </div>
             </div>
@@ -91,7 +114,10 @@
             <div class="col-md-4">
                 <div class="form-group">
                     @Html.LabelFor(m => m.Isr.Cantidad, "ISR", htmlAttributes: new { @class = "col-md-4" })
-                    <div class="col-md-10">
+                    <div class="col-md-10 input-group">
+                        <div class="input-group-prepend">
+                            <span class="input-group-text">RD$</span>
+                        </div>
                         @Html.EditorFor(m => m.Isr.Cantidad, new { htmlAttributes = new { @class = "form-control", @readonly = true } })
                         @Html.ValidationMessageFor(m => m.Isr.Cantidad, "", new { @class = "text-danger" })
                         @Html.HiddenFor(m => m.Isr.Codigo_Nomina)
@@ -101,12 +127,20 @@
 
                 <div class="form-group">
                     @Html.LabelFor(m => m.SeguroMedico.Cantidad, "Seguro Medico", htmlAttributes: new { @class = "col-md-4" })
-                    <div class="col-md-10">
-                        @Html.EditorFor(m => m.SeguroMedico.Cantidad, new { htmlAttributes = new { @class = "form-control", @readonly = true } })
+                    <div class="col-md-10 input-group">
+                        <div class="input-group-prepend">
+                            <span class="input-group-text">RD$</span>
+                        </div>
+                        @Html.EditorFor(m => m.SeguroMedico.Cantidad, new { htmlAttributes = new { @class = "form-control" } })
                         @Html.ValidationMessageFor(m => m.SeguroMedico.Cantidad, "", new { @class = "text-danger" })
                         @Html.HiddenFor(m => m.SeguroMedico.Codigo_Nomina)
                         @Html.HiddenFor(m => m.SeguroMedico.Codigo_Retencion)
                     </div>
+                </div>
+
+                <div class="form-group">
+                    <label class="col-md-12 font-weight-bold">Total Retenciones</label>
+                    <p class="col-md-12" id="totalImp">RD$ 0.00</p>
                 </div>
             </div>
 
@@ -128,6 +162,8 @@
 
 <script>
     $(function () {
+        calc();
+
         $('#Nomina_Sueldo').keyup(function () {
             calc();
         });
@@ -166,28 +202,36 @@
             var afp = sinExtras * 0.0287;
             var totalTss = sfs + afp;
 
+            var isr; 
+
             var rentaImponible = sueldoTotal - totalTss;
             var rentaAnual = rentaImponible * 12;
+            var totalImp;
 
             if (sueldo > 34685) {
-                var isr = (rentaAnual < 416220.01
-                    ? 0
-                    : (rentaAnual < 624329.01
-                        ? (rentaAnual - 416220.01) * 0.15
-                        : (rentaAnual < 867123.01
-                            ? 31216 + ((rentaAnual - 624329.01) * 0.20)
-                            : (rentaAnual >= 867123.01 ? 79776 + ((rentaAnual - 867123.01) * 0.25) : 0)))) / 12;
-            }
-            var totalImp = parseFloat(totalTss + isr + seguroMedico);
+                isr = (rentaAnual < 416220.01
+                        ? 0
+                        : (rentaAnual < 624329.01
+                            ? (rentaAnual - 416220.01) * 0.15
+                            : (rentaAnual < 867123.01
+                                ? 31216 + ((rentaAnual - 624329.01) * 0.20)
+                            : (rentaAnual >= 867123.01 ? 79776 + ((rentaAnual - 867123.01) * 0.25)
+                                    : 0)))) / 12;
 
-            $('#rentaImponible').html(rentaImponible);
+                totalImp = parseFloat(totalTss + isr + seguroMedico);
+            } else {
+                totalImp = parseFloat(totalTss + seguroMedico);
+            }
+
+            $('#rentaImponible').html("RD$ " + rentaImponible.toFixed(2));
             $('#Afp_Cantidad').val(afp.toFixed(2));
             $('#Sfs_Cantidad').val(sfs.toFixed(2));
-            $('#totalTss').html(totalTss.toFixed(2));
+            $('#totalTss').html("RD$ " + totalTss.toFixed(2));
 
-            $('#Isr_Cantidad').val(isr.toFixed(2));
+            $('#totalImp').html("RD$ " + totalImp.toFixed(2));
 
-            $('#totalImp').html(totalImp.toFixed(2));
+            if (isr)
+                $('#Isr_Cantidad').val(isr.toFixed(2));
         }
     });
 </script>

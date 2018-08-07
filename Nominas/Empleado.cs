@@ -20,7 +20,12 @@ namespace Nominas
         {
             this.Nomina = new HashSet<Nomina>();
         }
-    
+
+        public string FullName()
+        {
+            return Nombre + " " + Apellido;
+        }
+
         public int Codigo_Empleado { get; set; }
         public string Nombre { get; set; }
         public string Apellido { get; set; }
@@ -31,7 +36,6 @@ namespace Nominas
         public int ID_Cargo { get; set; }
         public int ID_Direccion { get; set; }
         public int Codigo_Horario { get; set; }
-    
         public virtual Cargo Cargo { get; set; }
         public virtual Direccion Direccion { get; set; }
         public virtual Horario Horario { get; set; }

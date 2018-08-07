@@ -120,7 +120,7 @@ namespace Nominas.Controllers
             };
 
             // Init Nomina's Fecha to current Month and Year, with Day set to the 31st
-            viewModel.Nomina.Fecha = new DateTime(DateTime.Today.Year, DateTime.Today.Month, 31);
+            viewModel.Nomina.Fecha = new DateTime(DateTime.Today.Year, DateTime.Today.Month, 28);
 
             // Make a list of empleados to populate a Dropdown List in the View
             var empleados = db.Empleado.AsEnumerable().Select(e => new
@@ -148,7 +148,8 @@ namespace Nominas.Controllers
             {
                 // Initialize Nomina with posted values
                 // Set each Retencion's Nombre accordingly
-                var nomina = new Nomina(viewModel.Nomina.Sueldo, viewModel.Nomina.Bonificaciones, viewModel.Nomina.Horas_Extras, viewModel.Nomina.Codigo_Empleado)
+                var nomina = new Nomina(viewModel.Nomina.Sueldo, viewModel.Nomina.Bonificaciones, 
+                    viewModel.Nomina.Horas_Extras, viewModel.Nomina.Codigo_Empleado, viewModel.Nomina.Fecha)
                 {
                     Retencion = new List<Retencion>
                     {
@@ -242,6 +243,8 @@ namespace Nominas.Controllers
 
                 // Modify records in DB accordingly
                 nominaInDb.Sueldo = nomina.Sueldo;
+                nominaInDb.Bonificaciones = viewModel.Nomina.Bonificaciones;
+                nominaInDb.Horas_Extras = viewModel.Nomina.Horas_Extras;
                 afpInDb.Cantidad = viewModel.Afp.Cantidad;
                 sfsInDb.Cantidad = viewModel.Sfs.Cantidad;
                 isrInDb.Cantidad = viewModel.Isr.Cantidad;
@@ -301,6 +304,7 @@ namespace Nominas.Controllers
             }
             return RedirectToAction("Index");
         }
+
 
         protected override void Dispose(bool disposing)
         {

@@ -19,14 +19,17 @@ namespace Nominas
         public Nomina()
         {
             this.Retencion = new HashSet<Retencion>();
+            Bonificaciones = (decimal) 0.00;
+            Horas_Extras = (decimal) 0.00;
         }
 
-        public Nomina(decimal sueldo, decimal? bonus, decimal? horasExtras, int empleado)
+        public Nomina(decimal sueldo, decimal? bonus, decimal? horasExtras, int empleado, DateTime fecha)
         {
             Codigo_Empleado = empleado;
             Sueldo = sueldo;
             Bonificaciones = bonus;
             Horas_Extras = horasExtras;
+            Fecha = fecha;
         }
 
         [Display(Name = "# Nomina")]

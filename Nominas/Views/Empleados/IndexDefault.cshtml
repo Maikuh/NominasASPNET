@@ -1,4 +1,6 @@
-﻿@model IEnumerable<Nominas.Empleado>
+﻿@model PagedList.IPagedList<Empleado>
+@using PagedList.Mvc;
+<link href="~/Content/PagedList.css" rel="stylesheet" type="text/css" />
 
 @{
     ViewBag.Title = "Index";
@@ -9,11 +11,10 @@
 @using (Html.BeginForm())
 {
     <div class="form-inline mb-2">
-        @Html.TextBox("SearchString", "", htmlAttributes: new {@class = "form-control mr-2", placeholder = "Buscar por nombre o apellido"})
-        <input type="submit" value="Buscar" class="btn btn-default"/>
+        @Html.TextBox("SearchString", "", htmlAttributes: new { @class = "form-control mr-2", placeholder = "Buscar por nombre o apellido" })
+        <input type="submit" value="Buscar" class="btn btn-default" />
     </div>
 }
-
 
 <table class="table">
     <tr>
@@ -24,19 +25,19 @@
             @Html.ActionLink("Apellido", "Index", new { sortOrder = ViewBag.ApellidoSortParm })
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.Cedula)
+            Cedula
         </th>
         <th>
             @Html.ActionLink("Fecha Nacimiento", "Index", new { sortOrder = ViewBag.DateSortParm })
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.Cargo)
+            Cargo
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.Direccion.Provincia)
+            Provincia
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.Horario)
+            Horario
         </th>
         <th></th>
     </tr>
@@ -72,3 +73,9 @@
     }
 
 </table>
+
+<br>
+Pagina @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber) de @Model.PageCount
+
+@Html.PagedListPager(Model, page => Url.Action("Index",
+    new { page, sortOrder = ViewBag.CurrentSort, currentFilter = ViewBag.CurrentFilter }))
