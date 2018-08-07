@@ -120,6 +120,9 @@ namespace Nominas.Controllers
                 SeguroMedico = new Retencion()
             };
 
+            // Init Nomina's Fecha to current Month and Year, with Day set to the 31st
+            viewModel.Nomina.Fecha = new DateTime(DateTime.Today.Year, DateTime.Today.Month, 31);
+
             // Make a list of empleados to populate a Dropdown List in the View
             var empleados = db.Empleado.AsEnumerable().Select(e => new
             {

@@ -39,6 +39,7 @@
 .pagination > li > a:focus,
 .pagination > li > span:focus {
   background-color: #eeeeee;
+    border-bottom-width: 0;
 }
 
 .pagination > .active > a,
