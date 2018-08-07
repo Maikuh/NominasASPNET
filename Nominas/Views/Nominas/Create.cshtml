@@ -6,114 +6,126 @@
 
 <h2>Crear</h2>
 
+@section stylesheets
+{
+    <link rel="stylesheet" href="https://code.jquery.com/ui/1.12.1/themes/start/jquery-ui.css">
+}
 
-@using (Html.BeginForm()) 
+@using (Html.BeginForm())
 {
     @Html.AntiForgeryToken()
-    
-<div class="form-horizontal">
-    <h4>Nomina</h4>
-    <hr />
-    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
-    
-    <div class="row">
-        <div class="col-md-4">
-            <div class="form-group">
-                @Html.LabelFor(model => model.Nomina.Codigo_Empleado, "Empleado", htmlAttributes: new { @class = "col-md-2" })
-                <div class="col-md-12">
-                    @Html.DropDownListFor(m => m.Nomina.Codigo_Empleado, ViewBag.Codigo_Empleado as SelectList, "Seleccione un empleado", new { @class = "form-control" })
-                    @Html.ValidationMessageFor(m => m.Nomina.Codigo_Empleado, "", new { @class = "text-danger" })
+
+    <div class="form-horizontal">
+        <h4>Nomina</h4>
+        <hr />
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+
+        <div class="row">
+            <div class="col-md-4">
+                <div class="form-group">
+                    @Html.LabelFor(model => model.Nomina.Codigo_Empleado, "Empleado", htmlAttributes: new { @class = "col-md-2" })
+                    <div class="col-md-12">
+                        @Html.DropDownListFor(m => m.Nomina.Codigo_Empleado, ViewBag.Codigo_Empleado as SelectList, "Seleccione un empleado", new { @class = "form-control" })
+                        @Html.ValidationMessageFor(m => m.Nomina.Codigo_Empleado, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    @Html.LabelFor(model => model.Nomina.Sueldo, htmlAttributes: new { @class = "col-md-2" })
+                    <div class="col-md-8">
+                        @Html.EditorFor(model => model.Nomina.Sueldo, new { htmlAttributes = new { @class = "form-control", type = "number" } })
+                        @Html.ValidationMessageFor(model => model.Nomina.Sueldo, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    @Html.LabelFor(model => model.Nomina.Bonificaciones, htmlAttributes: new { @class = "col-md-2" })
+                    <div class="col-md-8">
+                        @Html.EditorFor(model => model.Nomina.Bonificaciones, new { htmlAttributes = new { @class = "form-control", type = "number" } })
+                        @Html.ValidationMessageFor(model => model.Nomina.Bonificaciones, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    @Html.LabelFor(model => model.Nomina.Horas_Extras, htmlAttributes: new { @class = "col-md-6" })
+                    <div class="col-md-8">
+                        @Html.EditorFor(model => model.Nomina.Horas_Extras, new { htmlAttributes = new { @class = "form-control", type = "number" } })
+                        @Html.ValidationMessageFor(model => model.Nomina.Horas_Extras, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    @Html.LabelFor(model => model.Nomina.Fecha, htmlAttributes: new { @class = "col-md-6" })
+                    <div class="col-md-8">
+                        @Html.EditorFor(model => model.Nomina.Fecha, new { htmlAttributes = new { @class = "form-control", type = "text" } })
+                        @Html.ValidationMessageFor(model => model.Nomina.Fecha, "", new { @class = "text-danger" })
+                    </div>
                 </div>
             </div>
 
-            <div class="form-group">
-                @Html.LabelFor(model => model.Nomina.Sueldo, htmlAttributes: new { @class = "col-md-2" })
-                <div class="col-md-8">
-                    @Html.EditorFor(model => model.Nomina.Sueldo, new { htmlAttributes = new { @class = "form-control", type = "number" } })
-                    @Html.ValidationMessageFor(model => model.Nomina.Sueldo, "", new { @class = "text-danger" })
+            <div class="col-md-4">
+                <div class="form-group">
+                    @Html.LabelFor(model => model.Afp.Cantidad, "AFP", new { @class = "col-md-2" })
+                    <div class="col-md-12">
+                        @Html.EditorFor(model => model.Afp.Cantidad, new { htmlAttributes = new { @class = "form-control", @readonly = true } })
+                        @Html.ValidationMessageFor(model => model.Afp.Cantidad, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    @Html.LabelFor(m => m.Sfs.Cantidad, "SFS", new { @class = "col-md-2" })
+                    <div class="col-md-12">
+                        @Html.EditorFor(m => m.Sfs.Cantidad, new { htmlAttributes = new { @class = "form-control", @readonly = true } })
+                        @Html.ValidationMessageFor(m => m.Sfs.Cantidad, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label class="col-md-12">Total TSS</label>
+                    <div class="col-md-12" id="totalTss">
+                        0.00
+                    </div>
                 </div>
             </div>
 
-            <div class="form-group">
-                @Html.LabelFor(model => model.Nomina.Bonificaciones, htmlAttributes: new { @class = "col-md-2" })
-                <div class="col-md-8">
-                    @Html.EditorFor(model => model.Nomina.Bonificaciones, new { htmlAttributes = new { @class = "form-control", type = "number" } })
-                    @Html.ValidationMessageFor(model => model.Nomina.Bonificaciones, "", new { @class = "text-danger" })
+            <div class="col-sm-6 col-md-4">
+                <div class="form-group">
+                    <label class="col-md-12 font-weight-bold">Renta Imponible</label>
+                    <div class="col-md-12" id="rentaImponible">
+                        0.00
+                    </div>
                 </div>
-            </div>
 
-            <div class="form-group">
-                @Html.LabelFor(model => model.Nomina.Horas_Extras, htmlAttributes: new { @class = "col-md-4" })
-                <div class="col-md-8">
-                    @Html.EditorFor(model => model.Nomina.Horas_Extras, new { htmlAttributes = new { @class = "form-control", type = "number" } })
-                    @Html.ValidationMessageFor(model => model.Nomina.Horas_Extras, "", new { @class = "text-danger" })
+                <div class="form-group">
+                    @Html.LabelFor(m => m.Isr.Cantidad, "ISR", new { @class = "col-md-2" })
+                    <div class="col-md-12">
+                        @Html.EditorFor(m => m.Isr.Cantidad, new { htmlAttributes = new { @class = "form-control", @readonly = true } })
+                        @Html.ValidationMessageFor(m => m.Isr.Cantidad, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    @Html.LabelFor(m => m.SeguroMedico.Cantidad, "Seguro Médico", new { @class = "col-md-12" })
+                    <div class="col-md-12">
+                        @Html.EditorFor(m => m.SeguroMedico.Cantidad, new { htmlAttributes = new { @class = "form-control", type = "number" } })
+                        @Html.ValidationMessageFor(m => m.SeguroMedico.Cantidad, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label class="col-md-12">Total Retenciones</label>
+                    <p class="col-md-12" id="totalImp">0.00</p>
                 </div>
             </div>
         </div>
-        
-        <div class="col-md-4">
-            <div class="form-group">
-                @Html.LabelFor(model => model.Afp.Cantidad, "AFP", new {@class = "col-md-2"})
-                <div class="col-md-12">
-                    @Html.EditorFor(model => model.Afp.Cantidad, new {htmlAttributes = new {@class = "form-control", @readonly = true}})
-                    @Html.ValidationMessageFor(model => model.Afp.Cantidad, "", new {@class = "text-danger"})
-                </div>
-            </div>
 
-            <div class="form-group">
-                @Html.LabelFor(m => m.Sfs.Cantidad, "SFS", new {@class = "col-md-2"})
-                <div class="col-md-12">
-                    @Html.EditorFor(m => m.Sfs.Cantidad, new {htmlAttributes = new {@class = "form-control", @readonly = true}})
-                    @Html.ValidationMessageFor(m => m.Sfs.Cantidad, "", new {@class = "text-danger"})
-                </div>
-            </div>
 
-            <div class="form-group">
-                <label class="col-md-12">Total TSS</label>
-                <div class="col-md-12" id="totalTss">
-                    0.00
-                </div>
-            </div>
-        </div>
-
-        <div class="col-sm-6 col-md-4">
-            <div class="form-group">
-                <label class="col-md-12 font-weight-bold">Renta Imponible</label>
-                <div class="col-md-12" id="rentaImponible">
-                    0.00
-                </div>
-            </div>
-
-            <div class="form-group">
-                @Html.LabelFor(m => m.Isr.Cantidad, "ISR", new { @class = "col-md-2" })
-                <div class="col-md-12">
-                    @Html.EditorFor(m => m.Isr.Cantidad, new { htmlAttributes = new { @class = "form-control", @readonly = true } })
-                    @Html.ValidationMessageFor(m => m.Isr.Cantidad, "", new { @class = "text-danger" })
-                </div>
-            </div>
-
-            <div class="form-group">
-                @Html.LabelFor(m => m.SeguroMedico.Cantidad, "Seguro Médico", new { @class = "col-md-12" })
-                <div class="col-md-12">
-                    @Html.EditorFor(m => m.SeguroMedico.Cantidad, new { htmlAttributes = new { @class = "form-control", type = "number" } })
-                    @Html.ValidationMessageFor(m => m.SeguroMedico.Cantidad, "", new { @class = "text-danger" })
-                </div>
-            </div>
-
-            <div class="form-group">
-                <label class="col-md-12">Total Retenciones</label>
-                <p class="col-md-12" id="totalImp">0.00</p>
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                <input type="submit" value="Crear" class="btn btn-default" />
             </div>
         </div>
     </div>
-    
-
-    <div class="form-group">
-        <div class="col-md-offset-2 col-md-10">
-            <input type="submit" value="Crear" class="btn btn-default" />
-        </div>
-    </div>
-</div>
 }
 
 <div>
@@ -123,9 +135,10 @@
 @section Scripts {
     @Scripts.Render("~/bundles/jqueryval")
 
+    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.min.js"></script>
     <script>
-        $(function() {
-            $('#Nomina_Sueldo').keyup(function() {
+        $(function () {
+            $('#Nomina_Sueldo').keyup(function () {
                 calc();
             });
 
@@ -133,13 +146,23 @@
                 calc();
             });
 
-            $('#Nomina_Bonificaciones').keyup(function() {
+            $('#Nomina_Bonificaciones').keyup(function () {
                 calc();
             });
 
-            $('#Nomina_Horas_Extras').keyup(function() {
+            $('#Nomina_Horas_Extras').keyup(function () {
                 calc();
             });
+
+            $('#Nomina_Fecha').datepicker({
+                dateFormat: 'mm/dd/yy',
+                changeMonth: true,
+                changeYear: true,
+                onClose: function (dateText, inst) {
+                    $(this).datepicker('setDate', new Date(inst.selectedYear, inst.selectedMonth, 31));
+                }
+            });
+            
 
             function calc() {
                 var sueldo = Number($('#Nomina_Sueldo').val());

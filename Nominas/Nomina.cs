@@ -33,6 +33,8 @@ namespace Nominas
         public int Codigo_Nomina { get; set; }
         public int Codigo_Empleado { get; set; }
         public decimal Sueldo { get; set; }
+
+        [DataType(DataType.Date), DisplayFormat(DataFormatString = "{0:d}", ApplyFormatInEditMode = true)]
         public DateTime Fecha { get; set; }
 
         [Display(Name = "Horas Extras")]

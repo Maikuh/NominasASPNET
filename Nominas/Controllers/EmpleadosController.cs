@@ -8,6 +8,7 @@ using System.Web;
 using System.Web.Mvc;
 using Nominas;
 using Nominas.ViewModels;
+using PagedList;
 
 namespace Nominas.Controllers
 {
@@ -16,14 +17,29 @@ namespace Nominas.Controllers
     {
         private NominaDbContext db = new NominaDbContext();
 
+
         // GET: Empleados
-        public ViewResult Index(string sortOrder, string searchString)
+        public ViewResult Index(string sortOrder, string currentFilter, string searchString, int? page)
         {
             ViewBag.CurrentSort = sortOrder;
             ViewBag.NameSortParm = String.IsNullOrEmpty(sortOrder) ? "name_desc" : "";
             ViewBag.ApellidoSortParm = sortOrder == "Lastname" ? "lastname_desc" : "Lastname";
             ViewBag.CargoSortParm = sortOrder == "Cargo" ? "Cargo_desc" : "Cargo";
             ViewBag.DateSortParm = sortOrder == "BirthDate" ? "date_desc" : "BirthDate";
+
+            if (searchString != null)
+            {
+                page = 1;
+            }
+            else
+            {
+                searchString = currentFilter;
+            }
+
+            ViewBag.CurrentFilter = searchString;
+
+
+
 
             var empleados = from e in db.Empleado
                            select e;
@@ -54,11 +70,13 @@ namespace Nominas.Controllers
                     empleados = empleados.OrderBy(e => e.Nombre);
                     break;
             }
+            int pageSize = 3;
+            int pageNumber = (page ?? 1);
 
             if (User.IsInRole("Admin"))
-                return View(empleados.ToList());
 
-            return View("IndexDefault", empleados.ToList());
+                return View(empleados.ToPagedList(pageNumber, pageSize));
+            return View("IndexDefault", empleados.ToPagedList(pageNumber, pageSize));
         }
 
         //public ActionResult Index()
