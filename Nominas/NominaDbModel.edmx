@@ -191,7 +191,7 @@
           <Property Name="Codigo_Departamento" Type="Int32" Nullable="false" />
           <Property Name="Nombre" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
           <NavigationProperty Name="Departamento" Relationship="Self.FK_Cargo_Departamento" FromRole="Cargo" ToRole="Departamento" />
-          <NavigationProperty Name="Empleadoes" Relationship="Self.FK_Empleado_Cargo" FromRole="Cargo" ToRole="Empleado" />
+          <NavigationProperty Name="Empleado" Relationship="Self.FK_Empleado_Cargo" FromRole="Cargo" ToRole="Empleado" />
         </EntityType>
         <EntityType Name="Departamento">
           <Key>
@@ -199,7 +199,7 @@
           </Key>
           <Property Name="Codigo_Departamento" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="Nombre" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
-          <NavigationProperty Name="Cargoes" Relationship="Self.FK_Cargo_Departamento" FromRole="Departamento" ToRole="Cargo" />
+          <NavigationProperty Name="Cargo" Relationship="Self.FK_Cargo_Departamento" FromRole="Departamento" ToRole="Cargo" />
         </EntityType>
         <EntityType Name="Direccion">
           <Key>
@@ -212,7 +212,7 @@
           <Property Name="Codigo_Postal" Type="String" MaxLength="5" FixedLength="true" Unicode="false" Nullable="false" />
           <Property Name="TelefonoCasa" Type="String" MaxLength="10" FixedLength="true" Unicode="false" />
           <Property Name="TelefonoMovil" Type="String" MaxLength="10" FixedLength="true" Unicode="false" />
-          <NavigationProperty Name="Empleadoes" Relationship="Self.FK_Empleado_Direccion" FromRole="Direccion" ToRole="Empleado" />
+          <NavigationProperty Name="Empleado" Relationship="Self.FK_Empleado_Direccion" FromRole="Direccion" ToRole="Empleado" />
         </EntityType>
         <EntityType Name="Empleado">
           <Key>
@@ -229,7 +229,7 @@
           <NavigationProperty Name="Cargo" Relationship="Self.FK_Empleado_Cargo" FromRole="Empleado" ToRole="Cargo" />
           <NavigationProperty Name="Direccion" Relationship="Self.FK_Empleado_Direccion" FromRole="Empleado" ToRole="Direccion" />
           <NavigationProperty Name="Horario" Relationship="Self.FK_Empleado_Horario" FromRole="Empleado" ToRole="Horario" />
-          <NavigationProperty Name="Nominas" Relationship="Self.FK_Nomina_Empleado" FromRole="Empleado" ToRole="Nomina" />
+          <NavigationProperty Name="Nomina" Relationship="Self.FK_Nomina_Empleado" FromRole="Empleado" ToRole="Nomina" />
         </EntityType>
         <EntityType Name="Horario">
           <Key>
@@ -238,7 +238,7 @@
           <Property Name="Codigo_Horario" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="Hora_Inicio" Type="DateTime" Nullable="false" Precision="3" />
           <Property Name="Hora_Fin" Type="DateTime" Nullable="false" Precision="3" />
-          <NavigationProperty Name="Empleadoes" Relationship="Self.FK_Empleado_Horario" FromRole="Horario" ToRole="Empleado" />
+          <NavigationProperty Name="Empleado" Relationship="Self.FK_Empleado_Horario" FromRole="Horario" ToRole="Empleado" />
         </EntityType>
         <EntityType Name="Nomina">
           <Key>
@@ -251,7 +251,7 @@
           <Property Name="Bonificaciones" Type="Decimal" Precision="19" Scale="4" />
           <Property Name="Fecha" Type="DateTime" Nullable="false" Precision="0" />
           <NavigationProperty Name="Empleado" Relationship="Self.FK_Nomina_Empleado" FromRole="Nomina" ToRole="Empleado" />
-          <NavigationProperty Name="Retencions" Relationship="Self.FK_Nomina_Retencion" FromRole="Nomina" ToRole="Retencion" />
+          <NavigationProperty Name="Retencion" Relationship="Self.FK_Nomina_Retencion" FromRole="Nomina" ToRole="Retencion" />
         </EntityType>
         <EntityType Name="Retencion">
           <Key>
@@ -336,36 +336,36 @@
           </ReferentialConstraint>
         </Association>
         <EntityContainer Name="NominaDbContext" annotation:LazyLoadingEnabled="true">
-          <EntitySet Name="Cargoes" EntityType="Self.Cargo" />
-          <EntitySet Name="Departamentoes" EntityType="Self.Departamento" />
-          <EntitySet Name="Direccions" EntityType="Self.Direccion" />
-          <EntitySet Name="Empleadoes" EntityType="Self.Empleado" />
-          <EntitySet Name="Horarios" EntityType="Self.Horario" />
-          <EntitySet Name="Nominas" EntityType="Self.Nomina" />
-          <EntitySet Name="Retencions" EntityType="Self.Retencion" />
+          <EntitySet Name="Cargo" EntityType="Self.Cargo" />
+          <EntitySet Name="Departamento" EntityType="Self.Departamento" />
+          <EntitySet Name="Direccion" EntityType="Self.Direccion" />
+          <EntitySet Name="Empleado" EntityType="Self.Empleado" />
+          <EntitySet Name="Horario" EntityType="Self.Horario" />
+          <EntitySet Name="Nomina" EntityType="Self.Nomina" />
+          <EntitySet Name="Retencion" EntityType="Self.Retencion" />
           <AssociationSet Name="FK_Cargo_Departamento" Association="Self.FK_Cargo_Departamento">
-            <End Role="Departamento" EntitySet="Departamentoes" />
-            <End Role="Cargo" EntitySet="Cargoes" />
+            <End Role="Departamento" EntitySet="Departamento" />
+            <End Role="Cargo" EntitySet="Cargo" />
           </AssociationSet>
           <AssociationSet Name="FK_Empleado_Cargo" Association="Self.FK_Empleado_Cargo">
-            <End Role="Cargo" EntitySet="Cargoes" />
-            <End Role="Empleado" EntitySet="Empleadoes" />
+            <End Role="Cargo" EntitySet="Cargo" />
+            <End Role="Empleado" EntitySet="Empleado" />
           </AssociationSet>
           <AssociationSet Name="FK_Empleado_Direccion" Association="Self.FK_Empleado_Direccion">
-            <End Role="Direccion" EntitySet="Direccions" />
-            <End Role="Empleado" EntitySet="Empleadoes" />
+            <End Role="Direccion" EntitySet="Direccion" />
+            <End Role="Empleado" EntitySet="Empleado" />
           </AssociationSet>
           <AssociationSet Name="FK_Empleado_Horario" Association="Self.FK_Empleado_Horario">
-            <End Role="Horario" EntitySet="Horarios" />
-            <End Role="Empleado" EntitySet="Empleadoes" />
+            <End Role="Horario" EntitySet="Horario" />
+            <End Role="Empleado" EntitySet="Empleado" />
           </AssociationSet>
           <AssociationSet Name="FK_Nomina_Empleado" Association="Self.FK_Nomina_Empleado">
-            <End Role="Empleado" EntitySet="Empleadoes" />
-            <End Role="Nomina" EntitySet="Nominas" />
+            <End Role="Empleado" EntitySet="Empleado" />
+            <End Role="Nomina" EntitySet="Nomina" />
           </AssociationSet>
           <AssociationSet Name="FK_Nomina_Retencion" Association="Self.FK_Nomina_Retencion">
-            <End Role="Nomina" EntitySet="Nominas" />
-            <End Role="Retencion" EntitySet="Retencions" />
+            <End Role="Nomina" EntitySet="Nomina" />
+            <End Role="Retencion" EntitySet="Retencion" />
           </AssociationSet>
         </EntityContainer>
       </Schema>
@@ -374,7 +374,7 @@
     <edmx:Mappings>
       <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
         <EntityContainerMapping StorageEntityContainer="NominaModelStoreContainer" CdmEntityContainer="NominaDbContext">
-          <EntitySetMapping Name="Cargoes">
+          <EntitySetMapping Name="Cargo">
             <EntityTypeMapping TypeName="NominaModel.Cargo">
               <MappingFragment StoreEntitySet="Cargo">
                 <ScalarProperty Name="ID_Cargo" ColumnName="ID_Cargo" />
@@ -383,7 +383,7 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="Departamentoes">
+          <EntitySetMapping Name="Departamento">
             <EntityTypeMapping TypeName="NominaModel.Departamento">
               <MappingFragment StoreEntitySet="Departamento">
                 <ScalarProperty Name="Codigo_Departamento" ColumnName="Codigo_Departamento" />
@@ -391,7 +391,7 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="Direccions">
+          <EntitySetMapping Name="Direccion">
             <EntityTypeMapping TypeName="NominaModel.Direccion">
               <MappingFragment StoreEntitySet="Direccion">
                 <ScalarProperty Name="ID_Direccion" ColumnName="ID_Direccion" />
@@ -404,7 +404,7 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="Empleadoes">
+          <EntitySetMapping Name="Empleado">
             <EntityTypeMapping TypeName="NominaModel.Empleado">
               <MappingFragment StoreEntitySet="Empleado">
                 <ScalarProperty Name="Codigo_Empleado" ColumnName="Codigo_Empleado" />
@@ -418,7 +418,7 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="Horarios">
+          <EntitySetMapping Name="Horario">
             <EntityTypeMapping TypeName="NominaModel.Horario">
               <MappingFragment StoreEntitySet="Horario">
                 <ScalarProperty Name="Codigo_Horario" ColumnName="Codigo_Horario" />
@@ -427,7 +427,7 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="Nominas">
+          <EntitySetMapping Name="Nomina">
             <EntityTypeMapping TypeName="NominaModel.Nomina">
               <MappingFragment StoreEntitySet="Nomina">
                 <ScalarProperty Name="Codigo_Nomina" ColumnName="Codigo_Nomina" />
@@ -439,7 +439,7 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="Retencions">
+          <EntitySetMapping Name="Retencion">
             <EntityTypeMapping TypeName="NominaModel.Retencion">
               <MappingFragment StoreEntitySet="Retencion">
                 <ScalarProperty Name="Codigo_Retencion" ColumnName="Codigo_Retencion" />
@@ -463,7 +463,7 @@
     <Options>
       <DesignerInfoPropertySet>
         <DesignerProperty Name="ValidateOnBuild" Value="true" />
-        <DesignerProperty Name="EnablePluralization" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="false" />
         <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
         <DesignerProperty Name="UseLegacyProvider" Value="false" />
         <DesignerProperty Name="CodeGenerationStrategy" Value="None" />

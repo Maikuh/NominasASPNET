@@ -17,9 +17,20 @@ namespace Nominas
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public Nomina()
         {
-            this.Retencions = new HashSet<Retencion>();
+            this.Retencion = new HashSet<Retencion>();
+            Bonificaciones = (decimal)0.00;
+            Horas_Extras = (decimal)0.00;
         }
-    
+
+        public Nomina(decimal sueldo, decimal? bonus, decimal? horasExtras, int empleado, DateTime fecha)
+        {
+            Codigo_Empleado = empleado;
+            Sueldo = sueldo;
+            Bonificaciones = bonus;
+            Horas_Extras = horasExtras;
+            Fecha = fecha;
+        }
+
         public int Codigo_Nomina { get; set; }
         public int Codigo_Empleado { get; set; }
         public decimal Sueldo { get; set; }
@@ -29,6 +40,6 @@ namespace Nominas
     
         public virtual Empleado Empleado { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Retencion> Retencions { get; set; }
+        public virtual ICollection<Retencion> Retencion { get; set; }
     }
 }

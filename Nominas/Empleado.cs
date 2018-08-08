@@ -17,9 +17,14 @@ namespace Nominas
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public Empleado()
         {
-            this.Nominas = new HashSet<Nomina>();
+            this.Nomina = new HashSet<Nomina>();
         }
-    
+
+        public string FullName()
+        {
+            return Nombre + " " + Apellido;
+        }
+
         public int Codigo_Empleado { get; set; }
         public string Nombre { get; set; }
         public string Apellido { get; set; }
@@ -33,6 +38,6 @@ namespace Nominas
         public virtual Direccion Direccion { get; set; }
         public virtual Horario Horario { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Nomina> Nominas { get; set; }
+        public virtual ICollection<Nomina> Nomina { get; set; }
     }
 }
