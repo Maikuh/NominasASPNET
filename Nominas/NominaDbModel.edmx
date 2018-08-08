@@ -335,7 +335,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <EntityContainer Name="NominaEntities" annotation:LazyLoadingEnabled="true">
+        <EntityContainer Name="NominaDbContext" annotation:LazyLoadingEnabled="true">
           <EntitySet Name="Cargoes" EntityType="Self.Cargo" />
           <EntitySet Name="Departamentoes" EntityType="Self.Departamento" />
           <EntitySet Name="Direccions" EntityType="Self.Direccion" />
@@ -373,7 +373,7 @@
     <!-- C-S mapping content -->
     <edmx:Mappings>
       <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
-        <EntityContainerMapping StorageEntityContainer="NominaModelStoreContainer" CdmEntityContainer="NominaEntities">
+        <EntityContainerMapping StorageEntityContainer="NominaModelStoreContainer" CdmEntityContainer="NominaDbContext">
           <EntitySetMapping Name="Cargoes">
             <EntityTypeMapping TypeName="NominaModel.Cargo">
               <MappingFragment StoreEntitySet="Cargo">

@@ -13,10 +13,10 @@ namespace Nominas
     using System.Data.Entity;
     using System.Data.Entity.Infrastructure;
     
-    public partial class NominaEntities : DbContext
+    public partial class NominaDbContext : DbContext
     {
-        public NominaEntities()
-            : base("name=NominaEntities")
+        public NominaDbContext()
+            : base("name=NominaDbContext")
         {
         }
     
