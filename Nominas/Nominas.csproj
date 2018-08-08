@@ -197,6 +197,18 @@
     <Compile Include="App_Start\IdentityConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\Startup.Auth.cs" />
+    <Compile Include="AspNetRoles.cs">
+      <DependentUpon>UsersDbModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="AspNetUserClaims.cs">
+      <DependentUpon>UsersDbModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="AspNetUserLogins.cs">
+      <DependentUpon>UsersDbModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="AspNetUsers.cs">
+      <DependentUpon>UsersDbModel.tt</DependentUpon>
+    </Compile>
     <Compile Include="Cargo.cs">
       <DependentUpon>NominaDbModel.tt</DependentUpon>
     </Compile>
@@ -206,6 +218,9 @@
     <Compile Include="Controllers\HorariosController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
     <Compile Include="Controllers\NominasController.cs" />
+    <Compile Include="C__MigrationHistory.cs">
+      <DependentUpon>UsersDbModel.tt</DependentUpon>
+    </Compile>
     <Compile Include="Departamento.cs">
       <DependentUpon>NominaDbModel.tt</DependentUpon>
     </Compile>
@@ -247,6 +262,21 @@
       <DependentUpon>NominaDbModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Startup.cs" />
+    <Compile Include="UsersDbModel.Context.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>UsersDbModel.Context.tt</DependentUpon>
+    </Compile>
+    <Compile Include="UsersDbModel.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>UsersDbModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="UsersDbModel.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>UsersDbModel.edmx</DependentUpon>
+    </Compile>
     <Compile Include="ViewModels\NewEmpleadoViewModel.cs" />
     <Compile Include="ViewModels\NewNominaViewModel.cs" />
   </ItemGroup>
@@ -320,6 +350,16 @@
     <Content Include="Scripts\umd\popper-utils.min.js" />
     <Content Include="Scripts\umd\popper.js" />
     <Content Include="Scripts\umd\popper.min.js" />
+    <Content Include="UsersDbModel.Context.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <DependentUpon>UsersDbModel.edmx</DependentUpon>
+      <LastGenOutput>UsersDbModel.Context.cs</LastGenOutput>
+    </Content>
+    <Content Include="UsersDbModel.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <DependentUpon>UsersDbModel.edmx</DependentUpon>
+      <LastGenOutput>UsersDbModel.cs</LastGenOutput>
+    </Content>
     <Content Include="Web.config">
       <SubType>Designer</SubType>
     </Content>
@@ -382,9 +422,17 @@
     <Content Include="Views\Nominas\Index.cshtml" />
     <Content Include="Views\Nominas\IndexDefault.cshtml" />
     <Content Include="Views\Empleados\IndexDefault.cshtml" />
+    <EntityDeploy Include="UsersDbModel.edmx">
+      <Generator>EntityModelCodeGenerator</Generator>
+      <LastGenOutput>UsersDbModel.Designer.cs</LastGenOutput>
+    </EntityDeploy>
+    <Content Include="UsersDbModel.edmx.diagram">
+      <DependentUpon>UsersDbModel.edmx</DependentUpon>
+    </Content>
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
+    <Folder Include="Properties\PublishProfiles\" />
     <Folder Include="Repository\" />
   </ItemGroup>
   <ItemGroup>
