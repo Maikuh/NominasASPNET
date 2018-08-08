@@ -11,35 +11,28 @@ namespace Nominas
 {
     using System;
     using System.Collections.Generic;
-    using System.ComponentModel.DataAnnotations;
-
+    
     public partial class Empleado
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public Empleado()
         {
-            this.Nomina = new HashSet<Nomina>();
+            this.Nominas = new HashSet<Nomina>();
         }
-
-        public string FullName()
-        {
-            return Nombre + " " + Apellido;
-        }
-
+    
         public int Codigo_Empleado { get; set; }
         public string Nombre { get; set; }
         public string Apellido { get; set; }
         public string Cedula { get; set; }
-
-        [Display(Name = "Fecha de Nacimiento"), DisplayFormat(DataFormatString = "{0:d}", ApplyFormatInEditMode = true)]
-        public DateTime Fecha_Nacimiento { get; set; }
+        public System.DateTime Fecha_Nacimiento { get; set; }
         public int ID_Cargo { get; set; }
         public int ID_Direccion { get; set; }
         public int Codigo_Horario { get; set; }
+    
         public virtual Cargo Cargo { get; set; }
         public virtual Direccion Direccion { get; set; }
         public virtual Horario Horario { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Nomina> Nomina { get; set; }
+        public virtual ICollection<Nomina> Nominas { get; set; }
     }
 }

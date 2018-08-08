@@ -11,41 +11,24 @@ namespace Nominas
 {
     using System;
     using System.Collections.Generic;
-    using System.ComponentModel.DataAnnotations;
-
+    
     public partial class Nomina
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public Nomina()
         {
-            this.Retencion = new HashSet<Retencion>();
-            Bonificaciones = (decimal) 0.00;
-            Horas_Extras = (decimal) 0.00;
+            this.Retencions = new HashSet<Retencion>();
         }
-
-        public Nomina(decimal sueldo, decimal? bonus, decimal? horasExtras, int empleado, DateTime fecha)
-        {
-            Codigo_Empleado = empleado;
-            Sueldo = sueldo;
-            Bonificaciones = bonus;
-            Horas_Extras = horasExtras;
-            Fecha = fecha;
-        }
-
-        [Display(Name = "# Nomina")]
+    
         public int Codigo_Nomina { get; set; }
         public int Codigo_Empleado { get; set; }
         public decimal Sueldo { get; set; }
-
-        [DataType(DataType.Date), DisplayFormat(DataFormatString = "{0:d}", ApplyFormatInEditMode = true)]
-        public DateTime Fecha { get; set; }
-
-        [Display(Name = "Horas Extras")]
         public Nullable<decimal> Horas_Extras { get; set; }
         public Nullable<decimal> Bonificaciones { get; set; }
+        public System.DateTime Fecha { get; set; }
     
         public virtual Empleado Empleado { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Retencion> Retencion { get; set; }
+        public virtual ICollection<Retencion> Retencions { get; set; }
     }
 }

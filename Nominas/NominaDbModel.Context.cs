@@ -13,10 +13,10 @@ namespace Nominas
     using System.Data.Entity;
     using System.Data.Entity.Infrastructure;
     
-    public partial class NominaDbContext : DbContext
+    public partial class NominaEntities : DbContext
     {
-        public NominaDbContext()
-            : base("name=NominaDbContext")
+        public NominaEntities()
+            : base("name=NominaEntities")
         {
         }
     
@@ -25,12 +25,12 @@ namespace Nominas
             throw new UnintentionalCodeFirstException();
         }
     
-        public virtual DbSet<Cargo> Cargo { get; set; }
-        public virtual DbSet<Departamento> Departamento { get; set; }
-        public virtual DbSet<Direccion> Direccion { get; set; }
-        public virtual DbSet<Empleado> Empleado { get; set; }
-        public virtual DbSet<Horario> Horario { get; set; }
-        public virtual DbSet<Nomina> Nomina { get; set; }
-        public virtual DbSet<Retencion> Retencion { get; set; }
+        public virtual DbSet<Cargo> Cargoes { get; set; }
+        public virtual DbSet<Departamento> Departamentoes { get; set; }
+        public virtual DbSet<Direccion> Direccions { get; set; }
+        public virtual DbSet<Empleado> Empleadoes { get; set; }
+        public virtual DbSet<Horario> Horarios { get; set; }
+        public virtual DbSet<Nomina> Nominas { get; set; }
+        public virtual DbSet<Retencion> Retencions { get; set; }
     }
 }

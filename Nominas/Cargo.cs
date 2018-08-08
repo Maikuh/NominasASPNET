@@ -17,7 +17,7 @@ namespace Nominas
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public Cargo()
         {
-            this.Empleado = new HashSet<Empleado>();
+            this.Empleadoes = new HashSet<Empleado>();
         }
     
         public int ID_Cargo { get; set; }
@@ -26,6 +26,6 @@ namespace Nominas
     
         public virtual Departamento Departamento { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Empleado> Empleado { get; set; }
+        public virtual ICollection<Empleado> Empleadoes { get; set; }
     }
 }
