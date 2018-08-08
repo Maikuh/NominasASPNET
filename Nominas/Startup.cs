@@ -17,7 +17,7 @@ namespace Nominas
 
         private void CreateDefaultRolesAndUsers()
         {
-            ApplicationDbContext context = new ApplicationDbContext();
+            DefaultConnection context = new DefaultConnection();
 
             var roleManager = new RoleManager<IdentityRole>(new RoleStore<IdentityRole>(context));
             var UserManager = new UserManager<ApplicationUser>(new UserStore<ApplicationUser>(context));
@@ -50,7 +50,7 @@ namespace Nominas
             if (!roleManager.RoleExists("Contable"))
             {
                 // Create Contable role
-                var role = new IdentityRole { Name = "Contable"};
+                var role = new IdentityRole { Name = "Contable" };
                 roleManager.Create(role);
 
                 // Create default User with Contable role               
